@@ -1,21 +1,34 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import CohortContainer from "./components/CohortContainer";
+import * as actions from "./actions";
+import "./App.css";
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchData();
+  }
   render() {
+    console.log(this.props);
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Switch>
+          <Route
+            path="/login"
+            render={routerProps => <Login {...routerProps} />}
+          />
+          <Route
+            path="/signup"
+            render={routerProps => <Signup {...routerProps} />}
+          />
+          <Route path="/cohorts" render={() => <CohortContainer />} />
+        </Switch>
       </div>
     );
   }
 }
 
-export default App;
+export default connect(null, actions)(App);
