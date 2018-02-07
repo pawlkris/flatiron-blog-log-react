@@ -15,51 +15,78 @@ const getUsers = () => {
   return fetch(`${API_ROOT}/users`).then(res => res.json());
 };
 
-const getPosts = () => {
-  return fetch(`${API_ROOT}/posts`).then(res => res.json());
+const getTags = () => {
+  return fetch(`${API_ROOT}/tags`).then(res => res.json());
 };
 
-// const token = localStorage.getItem("token");
+const getWithToken = url => {
+  const token = localStorage.getItem("token");
+  return fetch(url, {
+    headers: { Authorization: token }
+  }).then(res => res.json());
+};
 
-// const login = (username, password) => {
-//   return fetch(`${API_ROOT}/auth`, {
-//     method: 'post',
-//     headers: headers,
-//     body: JSON.stringify({username,password})
-//   })
-//   .then(res => res.json());
-// }
-//
-//
-// const getCurrentUser = () => {
-//   return fetch(`${API_ROOT}/current_user`, {
-//     headers: headers
-//   })
-//   .then(res => res.json());
-// }
-//
-// const newUser = (user) => {
-//   return fetch(`${API_ROOT}/users`, {
-//     method: "post",
-//     headers: headers,
-//     body: JSON.stringify(user)
-//   })
-//   .then(res => res.json())
-// }
+const getCurrentUser = () => {
+  return getWithToken(`${API_ROOT}/current_user`);
+};
+
+const login = data => {
+  return fetch(`${API_ROOT}/login`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(data)
+  }).then(res => res.json());
+};
+
+const deleteLibraryPost = id => {
+  return fetch(`${API_ROOT}/fan_posts/${id}`, {
+    method: "delete",
+    headers: headers
+  });
+};
+
+const addLibraryPost = (userId, postId) => {
+  return fetch(`${API_ROOT}/fan_posts`, {
+    method: "post",
+    headers: headers,
+    body: JSON.stringify({ fan_id: userId, liked_post_id: postId })
+  }).then(res => res.json());
+};
+
+const newUser = user => {
+  return fetch(`${API_ROOT}/users`, {
+    method: "post",
+    headers: headers,
+    body: JSON.stringify(user)
+  }).then(res => res.json());
+};
+
+const editUser = user => {
+  return fetch(`${API_ROOT}/users/${user.id}`, {
+    method: "patch",
+    headers: headers,
+    body: JSON.stringify(user)
+  }).then(res => res.json());
+};
 
 export default {
-  // auth: {
-  //   login,
-  //   getCurrentUser
-  // },
+  auth: {
+    login,
+    getCurrentUser
+  },
   cohorts: {
     getCohorts
   },
-  posts: {
-    getPosts
-  },
   users: {
-    getUsers
-    // newUser,
+    getUsers,
+    newUser,
+    editUser
+  },
+  tags: {
+    getTags
+  },
+  library: {
+    deleteLibraryPost,
+    addLibraryPost
   }
 };

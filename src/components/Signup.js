@@ -1,38 +1,66 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { newUser } from "../actions";
 
 class Signup extends Component {
   state = {
-    name: "",
+    medium_username: "",
+    cohort_id: "",
+    password: "",
     email: "",
-    username: "",
-    password: ""
+    github: ""
   };
 
   handleChange = (event, attr) => {
     this.setState({ [attr]: event.target.value });
   };
 
-  handleSubmit = (event, user) => {
+  handleSubmit = (event, user, history) => {
     event.preventDefault();
-    // api.users.newUser(user)
-    // .then(this.props.history.push('/login'))
+    this.props.newUser(user, history);
   };
 
   render() {
+    let cohortOptions = this.props.cohorts.map((cohort, index) => (
+      <option key={index} value={cohort.id}>
+        {cohort.name}
+      </option>
+    ));
     return (
       <div className="signup">
         <h2>Create an account with your Medium Account</h2>
         <form
           className="ui form"
-          onSubmit={event => this.handleSubmit(event, this.state)}
+          onSubmit={event =>
+            this.handleSubmit(event, this.state, this.props.history)
+          }
         >
           <div className="field">
-            <label>Name:</label>
+            <label>Medium Username:</label>
             <input
               type="text"
-              value={this.state.name}
-              onChange={event => this.handleChange(event, "name")}
+              value={this.state.medium_username}
+              onChange={event => this.handleChange(event, "medium_username")}
             />
+          </div>
+          <div className="field">
+            <label>Password:</label>
+            <input
+              type="password"
+              value={this.state.password}
+              onChange={event => this.handleChange(event, "password")}
+            />
+            <div className="field">
+              <label>Cohort</label>
+              <select
+                className="ui fluid dropdown"
+                value={this.state.cohort_id}
+                onChange={event => this.handleChange(event, "cohort_id")}
+              >
+                <option value="">Cohort</option>
+                {cohortOptions}
+              </select>
+            </div>
           </div>
           <div className="field">
             <label>Email:</label>
@@ -43,19 +71,11 @@ class Signup extends Component {
             />
           </div>
           <div className="field">
-            <label>Username:</label>
+            <label>Github Username:</label>
             <input
               type="text"
-              value={this.state.username}
-              onChange={event => this.handleChange(event, "username")}
-            />
-          </div>
-          <div className="field">
-            <label>Password:</label>
-            <input
-              type="password"
-              value={this.state.password}
-              onChange={event => this.handleChange(event, "password")}
+              value={this.state.github}
+              onChange={event => this.handleChange(event, "github")}
             />
           </div>
           <button className="ui button">Submit</button>
@@ -65,4 +85,6 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+const mapStateToProps = state => ({ cohorts: state.cohorts });
+
+export default connect(mapStateToProps, { newUser })(Signup);

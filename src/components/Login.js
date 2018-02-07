@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { loginUser } from "../actions/auth";
 
 class Login extends React.Component {
   state = {
@@ -12,17 +14,10 @@ class Login extends React.Component {
     this.setState({ [attr]: event.target.value });
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-    console.log(event.target);
-    // api.auth.login(this.state.username, this.state.password)
-    // .then(res => {
-    //   if (res.error){
-    //   this.setState({error:true});
-    // } else {
-    //   this.props.handleLogin(res)
-    // }
-    // });
+  handleSubmit = e => {
+    e.preventDefault();
+    const { username, password } = this.state;
+    this.props.loginUser(username, password, this.props.history);
   };
 
   render() {
@@ -30,7 +25,7 @@ class Login extends React.Component {
       <div className="login">
         <form onSubmit={this.handleSubmit}>
           <div className="field">
-            <label>Username:</label>
+            <label>Medium Username:</label>
             <input
               type="text"
               value={this.state.username}
@@ -56,4 +51,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default connect(null, { loginUser })(Login);
