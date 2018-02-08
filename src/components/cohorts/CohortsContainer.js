@@ -9,8 +9,19 @@ const CohortsContainer = props => {
   console.log(props);
   return (
     <div className="cohort-container">
-      <p>cohort container</p>
       <Switch>
+        <Route
+          path="/cohorts/users/:id"
+          render={({ match }) => {
+            let user = "";
+            if (props.users.length > 0) {
+              user = props.users.find(
+                user => user.id === parseInt(match.params.id, 10)
+              );
+            }
+            return user ? <UserShow user={user} /> : <div>Loading...</div>;
+          }}
+        />
         <Route
           path="/cohorts/:id"
           render={({ match }) => {
@@ -25,18 +36,6 @@ const CohortsContainer = props => {
             ) : (
               <div>Loading...</div>
             );
-          }}
-        />
-        <Route
-          path="/cohorts/users/:id"
-          render={({ match }) => {
-            let user = "";
-            if (props.users.length > 0) {
-              user = props.users.find(
-                user => user.id === parseInt(match.params.id, 10)
-              );
-            }
-            return user ? <UserShow user={user} /> : <div>Loading...</div>;
           }}
         />
         <Route

@@ -23,17 +23,17 @@ export function fetchData() {
 
 export function newUser(user, history) {
   return dispatch => {
-    api.users.newUser(user => {
+    api.users.newUser(user).then(user => {
       dispatch({ type: ADD_USER, user });
+      history.push("/login");
     });
-    history.push("/login");
   };
 }
 
-export function editUser(user) {
+export function editUser(userId, user) {
   return dispatch => {
-    api.users.editUser(user => {
-      dispatch({ type: EDIT_USER, user });
+    api.users.editUser(user).then(user => {
+      dispatch({ type: EDIT_USER, user, userId });
     });
   };
 }

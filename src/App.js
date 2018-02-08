@@ -1,14 +1,18 @@
+import "semantic-ui-css/semantic.min.css";
 import React, { Component } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { Container } from "semantic-ui-react";
+import { setCurrentUser } from "./actions/auth";
+import { fetchData } from "./actions";
+
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import AccountContainer from "./components/account/AccountContainer";
 import PostsContainer from "./components/posts/PostsContainer";
 import CohortsContainer from "./components/cohorts/CohortsContainer";
-import { setCurrentUser } from "./actions/auth";
-import { fetchData } from "./actions";
+import DashboardContainer from "./components/dashboard/DashboardContainer";
 import "./App.css";
 
 class App extends Component {
@@ -25,6 +29,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
+        <Container />
         <Switch>
           <Route
             path="/login"
@@ -46,7 +51,12 @@ class App extends Component {
             path="/account"
             render={routerProps => <AccountContainer {...routerProps} />}
           />
+          <Route
+            path="/dashboard"
+            render={routerProps => <DashboardContainer {...routerProps} />}
+          />
         </Switch>
+        <Container />
       </div>
     );
   }

@@ -1,70 +1,82 @@
 import React from "react";
 import { connect } from "react-redux";
 import { updatePostFilter } from "../../actions/filter";
+import { Button, Dropdown, Form } from "semantic-ui-react";
 
 class PostFilter extends React.Component {
   state = {
     tag: this.props.filter.tag,
     title: this.props.filter.title,
     cohort: this.props.filter.cohort,
-    sort: this.props.filter
+    sort: this.props.filter.sort
   };
 
   handleChange = (event, key) => {
-    event.preventDefault();
     this.setState({ [key]: event.target.value });
   };
 
-  handleSubmit = (event, state) => {
+  handleDropdownChange = (event, key, data) => {
+    this.setState({ [key]: data.value });
+  };
+
+  handleSubmit = (event, data) => {
     event.preventDefault();
     this.props.updatePostFilter(this.state);
   };
 
   render() {
-    console.log(this.props);
-    let cohortOptions = this.props.cohorts.map((cohort, index) => (
-      <option key={index} value={cohort.id}>
-        {cohort.name}
-      </option>
-    ));
+    console.log(this.state);
+    let cohortOptions = this.props.cohorts.map((cohort, index) => ({
+      key: index,
+      text: cohort.name,
+      value: cohort.id
+    }));
+    cohortOptions.unshift({ key: "", text: "", value: "" });
+
+    let sortOptions = [
+      { key: "", text: "", value: "" },
+      { key: "new", text: "Chronological (Recent First)", value: "newest" },
+      { key: "old", text: "Chronological (Oldest First)", value: "oldest" },
+      { key: "alph", text: "Post Name (A-Z)", value: "alpha" },
+      { key: "alph-rev", text: "Post Name (Z-A)", value: "alpha-reverse" },
+      { key: "claps", text: "Most Claps", value: "most-claps" }
+    ];
+
     return (
       <div className="post-filter">
-        <form onSubmit={event => this.handleSubmit(event, this.state)}>
-          <label>Tag: </label>
-          <input
-            type="text"
-            value={this.state.tag}
-            onChange={event => this.handleChange(event, "tag")}
-          />
-          <label>Title: </label>
-          <input
-            type="text"
+        <Form onSubmit={event => this.handleSubmit(event, this.state)}>
+          <Form.Input
+            label="Title:"
             value={this.state.title}
             onChange={event => this.handleChange(event, "title")}
           />
-          <label>Cohort</label>
-          <select
-            className="ui fluid dropdown"
-            value={this.state.cohort}
-            onChange={event => this.handleChange(event, "cohort")}
-          >
-            <option value="">Cohort</option>
-            {cohortOptions}
-          </select>
-          <label>Sort By:</label>
-          <select
-            className="ui fluid dropdown"
-            value={this.state.sortBy}
-            onChange={event => this.handleChange(event, "sort")}
-          >
-            <option value="newest">Chronological (Recent First)</option>
-            <option value="oldest">Chronological (Oldest First)</option>
-            <option value="alpha">Post Name (A-Z)</option>
-            <option value="alpha-reverse">Post Name (Z-A)</option>
-            <option value="most-claps">Most Claps</option>
-          </select>
-          <button className="ui button">Submit</button>
-        </form>
+          <Form.Group>
+            <Form.Input
+              label="Tag:"
+              type="text"
+              width="8"
+              value={this.state.tag}
+              onChange={event => this.handleChange(event, "tag")}
+            />
+            <Form.Select
+              label="Cohort:"
+              value={this.state.cohort}
+              onChange={(event, data) =>
+                this.handleDropdownChange(event, "cohort", data)
+              }
+              options={cohortOptions}
+            />
+            <Form.Select
+              label="Sort By:"
+              value={this.state.sortBy}
+              onChange={(event, data) =>
+                this.handleDropdownChange(event, "sort", data)
+              }
+              options={sortOptions}
+            />
+          </Form.Group>
+          <Button>Submit</Button>
+        </Form>
       </div>
     );
   }

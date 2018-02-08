@@ -7,10 +7,16 @@ const tagNames = tagObjects => {
   return tagObjects.map(tag => tag.name);
 };
 
+const validateEmail = email => {
+  let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+};
+
 // const alphaSort = array =>
 // .sort((a,b) => {  if (a.title.toLowerCase() > b.title.toLowerCase()){ return 1} else if (b.title.toLowerCase() > a.title.toLowerCase()){ return -1}else {return 0}}
 
 export default {
   formatDate,
-  tagNames
+  tagNames,
+  validateEmail
 };

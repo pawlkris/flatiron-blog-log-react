@@ -2,12 +2,17 @@ import React from "react";
 import Post from "./Post";
 import { connect } from "react-redux";
 import helper from "../../services/helper";
+import { Card } from "semantic-ui-react";
 
 const PostsList = props => {
   const posts = props.posts.map((post, index) => (
     <Post post={post} key={index} />
   ));
-  return <div className="post-list">{posts}</div>;
+  return (
+    <div className="post-list">
+      <Card.Group>{posts}</Card.Group>
+    </div>
+  );
 };
 
 const mapStateToProps = state => {

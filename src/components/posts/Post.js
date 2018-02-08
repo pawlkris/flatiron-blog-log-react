@@ -3,6 +3,7 @@ import helper from "../../services/helper";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { addLibraryPost } from "../../actions/library";
+import { Card, Button } from "semantic-ui-react";
 
 const Post = props => {
   let tagNames =
@@ -13,12 +14,10 @@ const Post = props => {
     props.post.slug
   }`;
   return (
-    <div className="post">
+    <Card>
       <Link to={`/posts/${props.post.id}`}>
         <h3>{props.post.title}</h3>
       </Link>
-      <p>Author: {props.post.author.name}</p>
-      <p>Date Posted: {helper.formatDate(props.post.date)}</p>
       <a href={medium_url}>View on Medium</a>
       <p>Tags: {tagNames}</p>
       {!!props.userId &&
@@ -31,15 +30,21 @@ const Post = props => {
             Save to Library
           </button>
         ))}
-    </div>
+    </Card>
   );
 };
 
 const mapStateToProps = state => ({
   userId: state.auth.currentUser.id,
-  likedPosts: state.users
-    .find(user => user.id === state.auth.currentUser.id)
-    .fan_posts.map(post => post.liked_post.id)
+  likedPosts: !!state.auth.currentUser.id
+    ? state.users
+        .find(user => user.id === state.auth.currentUser.id)
+        .fan_posts.map(post => post.liked_post.id)
+    : []
 });
 
 export default connect(mapStateToProps, { addLibraryPost })(Post);
+
+// REMOVED FROM CARD
+// <p>Author: {props.post.author.name}</p>
+// <p>Date Posted: {helper.formatDate(props.post.date)}</p>

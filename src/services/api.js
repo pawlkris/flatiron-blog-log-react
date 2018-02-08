@@ -63,7 +63,7 @@ const newUser = user => {
 
 const editUser = user => {
   return fetch(`${API_ROOT}/users/${user.id}`, {
-    method: "patch",
+    method: "PATCH",
     headers: headers,
     body: JSON.stringify(user)
   }).then(res => res.json());

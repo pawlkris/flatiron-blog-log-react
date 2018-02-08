@@ -1,28 +1,54 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Container, Button, Form, Segment, Message } from "semantic-ui-react";
+import { editUser } from "../../actions";
+import helper from "../../services/helper";
 
 class EditAccountInfo extends React.Component {
   state = {
-    cohort: this.props.cohort,
+    cohort_id: this.props.cohort_id,
     email: this.props.email,
     github: this.props.github,
-    user_id: this.props.id,
-    password: ""
+    id: this.props.userId,
+    password: "",
+    emailValid: true
+  };
+
+  handleSubmit = () => {
+    if (this.state.email === "" || helper.validateEmail(this.state.email)) {
+      this.setState({ emailValid: true });
+      this.props.editUser(this.props.userId, this.state);
+    } else {
+      this.setState({ emailValid: false });
+    }
   };
 
   handleChange = (event, attr) => {
     this.setState({ [attr]: event.target.value });
   };
 
+  handleDropdownChange = (key, data) => {
+    this.setState({ [key]: data.value });
+  };
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      cohort_id: nextProps.cohort_id,
+      email: nextProps.email,
+      github: nextProps.github,
+      user_id: nextProps.user_id,
+      password: ""
+    });
+  }
+
   render() {
-    console.log("props on refresh", this.props, "state on refresh", this.state);
-    let cohortOptions = this.props.allCohorts.map((cohort, index) => (
-      <option key={index} value={cohort.id}>
-        {cohort.name}
-      </option>
-    ));
-    console.log("this is props", this.props);
-    console.log("this is this.props.cohort", this.props.cohort);
+    console.log(this.state.email !== "");
+    let cohortOptions = this.props.cohorts.map((cohort, index) => ({
+      key: index,
+      text: cohort.name,
+      value: cohort.id
+    }));
+    cohortOptions.unshift({ key: "", text: "", value: "" });
     console.log("this is state", this.state);
     return (
       <div className="edit-account-info">
@@ -34,49 +60,50 @@ class EditAccountInfo extends React.Component {
         />
         <p>Medium Username: {this.props.medium}</p>
         <p>Name: {this.props.name}</p>
-        <form
-          style={{ opacity: ".9", margin: " 0 20%" }}
-          className="ui form segment"
-          onSubmit={event => this.props.updateUser(event, this.state)}
+        <Form
+          error
+          success
+          align="left"
+          style={{ margin: " 2% 20%" }}
+          onSubmit={this.handleSubmit}
         >
-          <div className="field">
-            <label>Cohort:</label>
-            <select
-              className="ui fluid dropdown"
-              value={this.state.cohort}
-              onChange={event => this.handleChange(event, "cohort")}
-            >
-              <option value="" />
-              {cohortOptions}
-            </select>
-          </div>
-          <div className="field">
-            <label>Email:</label>
-            <input
-              type="text"
-              value={this.state.email}
-              onChange={event => this.handleChange(event, "email")}
+          <Form.Select
+            label="Cohort:"
+            value={this.state.cohort_id}
+            onChange={(event, data) =>
+              this.handleDropdownChange("cohort_id", data)
+            }
+            options={cohortOptions}
+          />
+          <Form.Input
+            label="Email:"
+            type="text"
+            value={this.state.email}
+            onChange={event => this.handleChange(event, "email")}
+          />
+          {!this.state.emailValid ? (
+            <Message
+              error
+              header="Invalid Email"
+              content="Please enter a valid email address or remove email address"
             />
-          </div>
-          <div className="field">
-            <label>Github Username:</label>
-            <input
-              type="text"
-              value={this.state.github}
-              onChange={event => this.handleChange(event, "github")}
-            />
-          </div>
-          <div className="field">
-            <label>Change Password:</label>
-            <input
-              type="text"
-              value={this.state.password}
-              onChange={event => this.handleChange(event, "password")}
-            />
-          </div>
-
-          <button className="ui button">Submit</button>
-        </form>
+          ) : (
+            ""
+          )}
+          <Form.Input
+            label="Github Username:"
+            type="text"
+            value={this.state.github}
+            onChange={event => this.handleChange(event, "github")}
+          />
+          <Form.Input
+            label="Change Password:"
+            type="password"
+            value={this.state.password}
+            onChange={event => this.handleChange(event, "password")}
+          />
+          <Button>Submit</Button>
+        </Form>
       </div>
     );
   }
@@ -87,7 +114,7 @@ const mapStateToProps = state => {
   let medium = "";
   let github = "";
   let email = "";
-  let cohort = "";
+  let cohort_id = "";
   let image = "";
   let currUserData = state.users.filter(
     user => user.id === state.auth.currentUser.id
@@ -97,7 +124,7 @@ const mapStateToProps = state => {
     medium = currUserData[0].medium_username;
     github = currUserData[0].github;
     email = currUserData[0].email;
-    cohort = currUserData[0].cohort_id;
+    cohort_id = currUserData[0].cohort_id;
     image = currUserData[0].image_slug;
   }
   let obj = {
@@ -105,11 +132,12 @@ const mapStateToProps = state => {
     medium: medium,
     github,
     email,
-    cohort,
+    cohort_id,
     image,
-    allCohorts: state.cohorts,
-    user_id: state.auth.currentUser.id
+    cohorts: state.cohorts,
+    userId: state.auth.currentUser.id
   };
+  console.log("mapStateToProps", obj);
   return obj;
 };
-export default connect(mapStateToProps, null)(EditAccountInfo);
+export default connect(mapStateToProps, { editUser })(EditAccountInfo);

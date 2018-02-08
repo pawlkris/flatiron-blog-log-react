@@ -12,11 +12,18 @@ const Navbar = props => {
       </div>
       {loggedIn ? (
         <div className="right menu">
+          <Link to="/dashboard" className="item">
+            <i className="bar chart icon" />
+            Blog Stats
+          </Link>
+          <Link to="/cohorts" className="item">
+            Browse Cohorts
+          </Link>
           <Link to="/posts" className="item">
-            <i className="plane icon" /> Search Posts
+            Search Posts
           </Link>
           <Link to="/account" className="item">
-            <i className="bar chart icon" /> Hello, {props.currentUser.username}
+            Hello, {props.currentUser.username}
           </Link>
           <Link to="/login" className="item" onClick={props.logoutUser}>
             <i className="sign out icon" />Logout
@@ -24,6 +31,9 @@ const Navbar = props => {
         </div>
       ) : (
         <div className="right menu">
+          <Link to="/cohorts" className="item">
+            Browse Cohorts
+          </Link>
           <Link to="/posts" className="item">
             <i className="plane icon" /> Search Posts
           </Link>

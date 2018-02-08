@@ -34,27 +34,24 @@ const cohortsReducer = (state = [], action) => {
 };
 
 const usersReducer = (state = [], action) => {
+  let user = state.find(user => user.id === action.userId);
+  let noUser = state.filter(user => user.id !== action.userId);
   switch (action.type) {
     case FETCH_USERS:
       return action.users;
     case DELETE_LIBRARY_POST:
-      let user = state.find(user => user.id === action.userId);
       let newLiked = user.fan_posts.filter(
         post => post.id !== action.fanPostId
       );
       user.fan_posts = newLiked;
-      let noUser = state.filter(user => user.id !== action.userId);
       return [...noUser, user];
     case ADD_LIBRARY_POST:
-      user = state.find(user => user.id === action.userId);
       user.fan_posts = [...user.fan_posts, action.post];
-      noUser = state.filter(user => user.id !== action.userId);
       return [...noUser, user];
-      return;
     case ADD_USER:
       return [...state, action.user];
     case EDIT_USER:
-      return [...state, action.user];
+      return [...noUser, action.user];
     default:
       return state;
   }

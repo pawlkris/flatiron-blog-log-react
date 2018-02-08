@@ -14,7 +14,9 @@ const PostShow = props => {
   }`;
   return (
     <div className="post-show">
-      <h2>{props.post.title}</h2>
+      <Link to={`/posts/${props.id}`}>
+        <h2>{props.post.title}</h2>
+      </Link>
       <p>Author: {props.post.author.name}</p>
       <p>Date Posted: {helper.formatDate(props.post.date)}</p>
       <a href={medium_url}>View on Medium</a>
@@ -34,7 +36,7 @@ const PostShow = props => {
 };
 
 const mapStateToProps = state => ({
-  userId: state.auth.currentUser.id,
+  userId: !!state.auth.currentUser.id ? state.auth.currentUser.id : null,
   likedPosts: state.users
     .find(user => user.id === state.auth.currentUser.id)
     .fan_posts.map(post => post.liked_post.id)

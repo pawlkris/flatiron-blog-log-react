@@ -9,7 +9,6 @@ class PostsContainer extends React.Component {
   render() {
     return (
       <div className="posts-container">
-        <p>Blog Posts</p>
         <Switch>
           <Route
             path="/posts/:id"

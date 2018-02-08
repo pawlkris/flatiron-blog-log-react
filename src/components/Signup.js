@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Container, Button, Form, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { newUser } from "../actions";
 
@@ -8,7 +9,8 @@ class Signup extends Component {
     cohort_id: "",
     password: "",
     email: "",
-    github: ""
+    github: "",
+    errors: false
   };
 
   handleChange = (event, attr) => {
@@ -16,70 +18,66 @@ class Signup extends Component {
   };
 
   handleSubmit = (event, user, history) => {
-    event.preventDefault();
     this.props.newUser(user, history);
   };
 
+  handleDropdownChange = (event, key, data) => {
+    this.setState({ [key]: data.value });
+  };
+
   render() {
-    let cohortOptions = this.props.cohorts.map((cohort, index) => (
-      <option key={index} value={cohort.id}>
-        {cohort.name}
-      </option>
-    ));
+    let cohortOptions = this.props.cohorts.map((cohort, index) => ({
+      key: index,
+      text: cohort.name,
+      value: cohort.id
+    }));
+    cohortOptions.unshift({ key: "", text: "", value: "" });
     return (
       <div className="signup">
-        <h2>Create an account with your Medium Account</h2>
-        <form
-          className="ui form"
-          onSubmit={event =>
-            this.handleSubmit(event, this.state, this.props.history)
-          }
-        >
-          <div className="field">
-            <label>Medium Username:</label>
-            <input
+        <Segment style={{ margin: " 2% 20%" }}>
+          <h2>Create an Account with your Medium Account</h2>
+          <Form
+            align="left"
+            style={{ margin: " 2% 20%" }}
+            onSubmit={event =>
+              this.handleSubmit(event, this.state, this.props.history)
+            }
+          >
+            <Form.Input
+              label="Medium Username:"
               type="text"
               value={this.state.medium_username}
               onChange={event => this.handleChange(event, "medium_username")}
             />
-          </div>
-          <div className="field">
-            <label>Password:</label>
-            <input
+            <Form.Input
+              label="Password:"
               type="password"
               value={this.state.password}
               onChange={event => this.handleChange(event, "password")}
             />
-            <div className="field">
-              <label>Cohort</label>
-              <select
-                className="ui fluid dropdown"
-                value={this.state.cohort_id}
-                onChange={event => this.handleChange(event, "cohort_id")}
-              >
-                <option value="">Cohort</option>
-                {cohortOptions}
-              </select>
-            </div>
-          </div>
-          <div className="field">
-            <label>Email:</label>
-            <input
+            <Form.Select
+              label="Cohort:"
+              value={this.state.cohort}
+              onChange={(event, data) =>
+                this.handleDropdownChange(event, "cohort_id", data)
+              }
+              options={cohortOptions}
+            />
+            <Form.Input
+              label="Email:"
               type="text"
               value={this.state.email}
               onChange={event => this.handleChange(event, "email")}
             />
-          </div>
-          <div className="field">
-            <label>Github Username:</label>
-            <input
+            <Form.Input
+              label="Github Username:"
               type="text"
               value={this.state.github}
               onChange={event => this.handleChange(event, "github")}
             />
-          </div>
-          <button className="ui button">Submit</button>
-        </form>
+            <Button>Submit</Button>
+          </Form>
+        </Segment>
       </div>
     );
   }
