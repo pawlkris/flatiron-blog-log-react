@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { updatePostFilter } from "../../actions/filter";
-import { Button, Dropdown, Form } from "semantic-ui-react";
+import { Button, Dropdown, Form, Segment, Header } from "semantic-ui-react";
 
 class PostFilter extends React.Component {
   state = {
@@ -44,39 +44,43 @@ class PostFilter extends React.Component {
 
     return (
       <div className="post-filter">
-        <Form onSubmit={event => this.handleSubmit(event, this.state)}>
-          <Form.Input
-            label="Title:"
-            value={this.state.title}
-            onChange={event => this.handleChange(event, "title")}
-          />
-          <Form.Group>
+        <Segment style={{ margin: "2% 15%" }}>
+          <Header as="h1">Search Blog Posts</Header>
+
+          <Form onSubmit={event => this.handleSubmit(event, this.state)}>
             <Form.Input
-              label="Tag:"
-              type="text"
-              width="8"
-              value={this.state.tag}
-              onChange={event => this.handleChange(event, "tag")}
+              label="Title:"
+              value={this.state.title}
+              onChange={event => this.handleChange(event, "title")}
             />
-            <Form.Select
-              label="Cohort:"
-              value={this.state.cohort}
-              onChange={(event, data) =>
-                this.handleDropdownChange(event, "cohort", data)
-              }
-              options={cohortOptions}
-            />
-            <Form.Select
-              label="Sort By:"
-              value={this.state.sortBy}
-              onChange={(event, data) =>
-                this.handleDropdownChange(event, "sort", data)
-              }
-              options={sortOptions}
-            />
-          </Form.Group>
-          <Button>Submit</Button>
-        </Form>
+            <Form.Group>
+              <Form.Input
+                label="Tag:"
+                type="text"
+                width="8"
+                value={this.state.tag}
+                onChange={event => this.handleChange(event, "tag")}
+              />
+              <Form.Select
+                label="Cohort:"
+                value={this.state.cohort}
+                onChange={(event, data) =>
+                  this.handleDropdownChange(event, "cohort", data)
+                }
+                options={cohortOptions}
+              />
+              <Form.Select
+                label="Sort By:"
+                value={this.state.sortBy}
+                onChange={(event, data) =>
+                  this.handleDropdownChange(event, "sort", data)
+                }
+                options={sortOptions}
+              />
+            </Form.Group>
+            <Button>Submit</Button>
+          </Form>
+        </Segment>
       </div>
     );
   }

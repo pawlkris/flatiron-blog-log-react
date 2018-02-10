@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, LOGOUT_USER } from "./types";
+import { SET_CURRENT_USER, LOGOUT_USER, LOGIN_ERROR } from "./types";
 import api from "../services/api";
 
 export const setCurrentUser = () => dispatch => {
@@ -9,9 +9,13 @@ export const setCurrentUser = () => dispatch => {
 
 export const loginUser = (username, password, history) => dispatch => {
   api.auth.login({ username, password }).then(user => {
-    localStorage.setItem("token", user.jwt);
-    dispatch({ type: SET_CURRENT_USER, user });
-    history.push("/account");
+    if (user.error) {
+      dispatch({ type: LOGIN_ERROR, message: user.error });
+    } else {
+      localStorage.setItem("token", user.jwt);
+      dispatch({ type: SET_CURRENT_USER, user });
+      history.push("/account");
+    }
   });
 };
 

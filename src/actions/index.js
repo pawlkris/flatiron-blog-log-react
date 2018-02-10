@@ -32,8 +32,8 @@ export function newUser(user, history) {
 
 export function editUser(userId, user) {
   return dispatch => {
-    api.users.editUser(user).then(user => {
-      dispatch({ type: EDIT_USER, user, userId });
+    api.users.editUser(user).then(updatedUser => {
+      dispatch({ type: EDIT_USER, updatedUser, userId });
     });
   };
 }

@@ -14,21 +14,26 @@ const Post = props => {
     props.post.slug
   }`;
   return (
-    <Card>
-      <Link to={`/posts/${props.post.id}`}>
-        <h3>{props.post.title}</h3>
-      </Link>
-      <a href={medium_url}>View on Medium</a>
-      <p>Tags: {tagNames}</p>
+    <Card centered>
+      <Card.Content>
+        <Link to={`/posts/${props.post.id}`}>
+          <h3>{props.post.title}</h3>
+        </Link>
+        <a href={medium_url}>View on Medium</a>
+        <p>
+          <strong>Tags:</strong> {tagNames}
+        </p>
+      </Card.Content>
       {!!props.userId &&
         (props.likedPosts.includes(props.post.id) ? (
           <p>You Liked this post</p>
         ) : (
-          <button
+          <Button
+            attached="bottom"
             onClick={() => props.addLibraryPost(props.userId, props.post)}
           >
             Save to Library
-          </button>
+          </Button>
         ))}
     </Card>
   );

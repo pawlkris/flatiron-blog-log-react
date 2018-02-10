@@ -52,14 +52,7 @@ class EditAccountInfo extends React.Component {
     console.log("this is state", this.state);
     return (
       <div className="edit-account-info">
-        <h2>Account Info</h2>
-        <img
-          src={`https://cdn-images-1.medium.com/fit/c/200/200/${
-            this.props.image
-          }`}
-        />
-        <p>Medium Username: {this.props.medium}</p>
-        <p>Name: {this.props.name}</p>
+        <h2>Edit Account Info</h2>
         <Form
           error
           success

@@ -9,8 +9,7 @@ class Signup extends Component {
     cohort_id: "",
     password: "",
     email: "",
-    github: "",
-    errors: false
+    github: ""
   };
 
   handleChange = (event, attr) => {
@@ -26,6 +25,7 @@ class Signup extends Component {
   };
 
   render() {
+    console.log(this.state);
     let cohortOptions = this.props.cohorts.map((cohort, index) => ({
       key: index,
       text: cohort.name,

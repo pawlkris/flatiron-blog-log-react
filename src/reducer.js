@@ -8,7 +8,8 @@ import {
   ADD_LIBRARY_POST,
   ADD_USER,
   EDIT_USER,
-  UPDATE_POST_FILTER
+  UPDATE_POST_FILTER,
+  LOGIN_ERROR
 } from "./actions/types";
 import { combineReducers } from "redux";
 
@@ -19,6 +20,17 @@ const authReducer = (state = { currentUser: {} }, action) => {
       return { ...state, currentUser: { id, username } };
     case LOGOUT_USER:
       return { ...state, currentUser: {} };
+    default:
+      return state;
+  }
+};
+
+const loginErrorReducer = (state = { status: false, message: "" }, action) => {
+  switch (action.type) {
+    case LOGIN_ERROR:
+      return { status: true, message: action.message };
+    case SET_CURRENT_USER:
+      return { status: false, message: "" };
     default:
       return state;
   }
@@ -93,7 +105,8 @@ const rootReducer = combineReducers({
   cohorts: cohortsReducer,
   users: usersReducer,
   postFilter: postFilterReducer,
-  tags: tagsReducer
+  tags: tagsReducer,
+  loginError: loginErrorReducer
 });
 
 export default rootReducer;

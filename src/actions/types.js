@@ -8,3 +8,4 @@ export const ADD_LIBRARY_POST = "ADD_LIBRARY_POST";
 export const ADD_USER = "ADD_USER";
 export const EDIT_USER = "EDIT_USER";
 export const UPDATE_POST_FILTER = "UPDATE_POST_FILTER";
+export const LOGIN_ERROR = "LOGIN_ERROR";

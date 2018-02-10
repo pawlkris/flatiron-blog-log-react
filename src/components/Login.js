@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/auth";
+import { Button, Form, Segment, Message } from "semantic-ui-react";
 
 class Login extends React.Component {
   state = {
     username: "",
-    password: "",
-    error: false
+    password: ""
   };
 
   handleChange = (event, attr) => {
@@ -20,35 +20,50 @@ class Login extends React.Component {
     this.props.loginUser(username, password, this.props.history);
   };
 
+  componentDidMount() {
+    console.log("mounting login");
+  }
+
   render() {
     return (
       <div className="login">
-        <form onSubmit={this.handleSubmit}>
-          <div className="field">
-            <label>Medium Username:</label>
-            <input
+        <Segment style={{ margin: " 2% 20%" }}>
+          <Form onSubmit={this.handleSubmit} error>
+            <Form.Input
+              label="Medium Username:"
               type="text"
               value={this.state.username}
               onChange={event => this.handleChange(event, "username")}
             />
-          </div>
-          <div className="field">
-            <label>Password:</label>
-            <input
+            <Form.Input
+              label="Password:"
               type="password"
               value={this.state.password}
               onChange={event => this.handleChange(event, "password")}
             />
-          </div>
-          <button className="ui button">Submit</button>
-        </form>
-        <br />
-        <Link to="/signup">
-          <button className="ui teal basic button">No Account? Sign up!</button>
-        </Link>
+            {!!this.props.loginError.status ? (
+              <Message
+                error
+                header="Login Error"
+                content={this.props.loginError.message}
+              />
+            ) : (
+              ""
+            )}
+            <Button>Submit</Button>
+          </Form>
+          <br />
+          <Link to="/signup">
+            <Button>No Account? Sign up!</Button>
+          </Link>
+        </Segment>
       </div>
     );
   }
 }
 
-export default connect(null, { loginUser })(Login);
+const mapStateToProps = state => ({
+  loginError: state.loginError
+});
+
+export default connect(mapStateToProps, { loginUser })(Login);
