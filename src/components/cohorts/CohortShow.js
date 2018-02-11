@@ -1,5 +1,6 @@
 import React from "react";
 import UserCard from "./UserCard";
+import { Card } from "semantic-ui-react";
 
 const CohortShow = props => {
   let users = [];
@@ -8,9 +9,8 @@ const CohortShow = props => {
   }
   return (
     <div className="cohort-show">
-      <h2>{props.cohort.name}</h2>
-      <p>list of students</p>
-      {users}
+      <h2>{props.cohort.name} Students</h2>
+      <Card.Group>{users}</Card.Group>
     </div>
   );
 };

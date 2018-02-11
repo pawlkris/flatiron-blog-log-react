@@ -2,7 +2,7 @@ import { DELETE_LIBRARY_POST, ADD_LIBRARY_POST } from "./types";
 import api from "../services/api";
 
 export const deleteLibraryPost = (userId, postId, fanPostId) => {
-  api.library.deleteLibraryPost(fanPostId).then(console.log);
+  api.library.deleteLibraryPost(fanPostId);
   return {
     type: DELETE_LIBRARY_POST,
     userId,

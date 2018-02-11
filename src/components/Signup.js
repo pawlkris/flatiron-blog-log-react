@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Container, Button, Form, Segment } from "semantic-ui-react";
+import { Button, Form, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { newUser } from "../actions";
+import { newUser, removeSignupError } from "../actions";
 
 class Signup extends Component {
   state = {
@@ -24,8 +24,11 @@ class Signup extends Component {
     this.setState({ [key]: data.value });
   };
 
+  componentWillUnmount() {
+    this.props.removeSignupError();
+  }
+
   render() {
-    console.log(this.state);
     let cohortOptions = this.props.cohorts.map((cohort, index) => ({
       key: index,
       text: cohort.name,
@@ -44,18 +47,21 @@ class Signup extends Component {
             }
           >
             <Form.Input
+              error={!!this.props.signupError.message.medium_username}
               label="Medium Username:"
               type="text"
               value={this.state.medium_username}
               onChange={event => this.handleChange(event, "medium_username")}
             />
             <Form.Input
+              error={!!this.props.signupError.message.password}
               label="Password:"
               type="password"
               value={this.state.password}
               onChange={event => this.handleChange(event, "password")}
             />
             <Form.Select
+              error={!!this.props.signupError.message.cohort_id}
               label="Cohort:"
               value={this.state.cohort}
               onChange={(event, data) =>
@@ -64,6 +70,9 @@ class Signup extends Component {
               options={cohortOptions}
             />
             <Form.Input
+              error={
+                !!this.state.email && !!this.props.signupError.message.email
+              }
               label="Email:"
               type="text"
               value={this.state.email}
@@ -83,6 +92,9 @@ class Signup extends Component {
   }
 }
 
-const mapStateToProps = state => ({ cohorts: state.cohorts });
+const mapStateToProps = state => ({
+  signupError: state.signupError,
+  cohorts: state.cohorts
+});
 
-export default connect(mapStateToProps, { newUser })(Signup);
+export default connect(mapStateToProps, { newUser, removeSignupError })(Signup);

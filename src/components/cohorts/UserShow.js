@@ -2,7 +2,6 @@ import React from "react";
 import UserPostList from "./UserPostList";
 
 const UserShow = props => {
-  console.log(props);
   let medium_url = `https://medium.com/@${props.user.medium_username}`;
   let github_url = `https://github.com/${props.user.github}`;
   return (
@@ -18,6 +17,7 @@ const UserShow = props => {
         src={`https://cdn-images-1.medium.com/fit/c/200/200/${
           props.user.image_slug
         }`}
+        alt="user"
       />
       <h3>{`${props.user.name.split(" ")[0]}'s Posts`}</h3>
       <UserPostList posts={props.user.authored_posts} />

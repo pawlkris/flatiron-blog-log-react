@@ -1,15 +1,31 @@
+import React from "react";
+
 const formatDate = date => {
   date = new Date(date);
   return `${date.getMonth() + 1}/${date.getDate() + 1}/${date.getFullYear()}`;
 };
 
 const tagNames = tagObjects => {
-  return tagObjects.map(tag => tag.name);
+  return tagObjects.map((tag, index) => (
+    <div className="tag" key={index}>
+      {tag.name}
+    </div>
+  ));
 };
 
 const validateEmail = email => {
   let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
+};
+
+const cohortsObjForDropdown = cohorts => {
+  let cohortOptions = cohorts.map((cohort, index) => ({
+    key: index,
+    text: cohort.name,
+    value: cohort.id
+  }));
+  cohortOptions.unshift({ key: "", text: "", value: "" });
+  return cohortOptions;
 };
 
 // const alphaSort = array =>
@@ -18,5 +34,6 @@ const validateEmail = email => {
 export default {
   formatDate,
   tagNames,
-  validateEmail
+  validateEmail,
+  cohortsObjForDropdown
 };

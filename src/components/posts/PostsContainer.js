@@ -4,39 +4,36 @@ import PostFilter from "./PostFilter";
 import PostList from "./PostList";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import { Container } from "semantic-ui-react";
 
 class PostsContainer extends React.Component {
   render() {
     return (
-      <div className="posts-container">
-        <Container>
-          <Switch>
-            <Route
-              path="/posts/:id"
-              render={({ match }) => {
-                let post = "";
-                if (this.props.posts.length > 0) {
-                  post = this.props.posts.find(
-                    post => post.id === parseInt(match.params.id, 10)
-                  );
-                }
-                return post ? <PostShow post={post} /> : <div>Loading...</div>;
-              }}
-            />
-            <Route
-              path="/posts"
-              render={() => {
-                return (
-                  <div className="all-posts">
-                    <PostFilter />
-                    <PostList />
-                  </div>
+      <div className="posts-container ui container">
+        <Switch>
+          <Route
+            path="/posts/:id"
+            render={({ match }) => {
+              let post = "";
+              if (this.props.posts.length > 0) {
+                post = this.props.posts.find(
+                  post => post.id === parseInt(match.params.id, 10)
                 );
-              }}
-            />
-          </Switch>
-        </Container>
+              }
+              return post ? <PostShow post={post} /> : <div>Loading...</div>;
+            }}
+          />
+          <Route
+            path="/posts"
+            render={() => {
+              return (
+                <div className="all-posts">
+                  <PostFilter />
+                  <PostList />
+                </div>
+              );
+            }}
+          />
+        </Switch>
       </div>
     );
   }

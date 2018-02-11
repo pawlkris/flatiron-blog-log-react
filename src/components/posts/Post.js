@@ -1,15 +1,10 @@
 import React from "react";
-import helper from "../../services/helper";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { addLibraryPost } from "../../actions/library";
-import { Card, Button } from "semantic-ui-react";
+import { Card, Button, Icon } from "semantic-ui-react";
 
 const Post = props => {
-  let tagNames =
-    props.post.tags.length > 0
-      ? helper.tagNames(props.post.tags).join(" - ")
-      : "none";
   let medium_url = `https://medium.com/@${props.post.medium_username}/${
     props.post.slug
   }`;
@@ -20,16 +15,17 @@ const Post = props => {
           <h3>{props.post.title}</h3>
         </Link>
         <a href={medium_url}>View on Medium</a>
-        <p>
-          <strong>Tags:</strong> {tagNames}
-        </p>
       </Card.Content>
       {!!props.userId &&
         (props.likedPosts.includes(props.post.id) ? (
-          <p>You Liked this post</p>
+          <Card.Meta>
+            <Icon name="book" />
+            This post is in your Library
+          </Card.Meta>
         ) : (
           <Button
             attached="bottom"
+            primary
             onClick={() => props.addLibraryPost(props.userId, props.post)}
           >
             Save to Library

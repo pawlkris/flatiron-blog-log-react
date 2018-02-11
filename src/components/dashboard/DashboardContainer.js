@@ -3,21 +3,27 @@ import { connect } from "react-redux";
 import { Bar } from "react-chartjs-2";
 
 const DashboardContainer = props => {
-  console.log(props);
   let uniqTags = [...new Set(props.tags)];
   let uniqTagCount = uniqTags.map(
     tag => props.tags.filter(t => t === tag).length
   );
 
+  let tagHashes = uniqTags.map((tag, index) => ({
+    name: tag,
+    count: uniqTagCount[index]
+  }));
+  tagHashes = tagHashes.sort((a, b) => {
+    return b.count - a.count;
+  });
+  tagHashes = tagHashes.filter(tag => tag.count > 3);
+  console.log(tagHashes);
+
   let chartLabels = [];
   let chartData = [];
-  for (let i = 0; i < uniqTags.length; i++) {
-    if (uniqTagCount[i] > 3) {
-      chartLabels.push(uniqTags[i]);
-      chartData.push(uniqTagCount[i]);
-    }
+  for (let i = 0; i < tagHashes.length; i++) {
+    chartLabels.push(tagHashes[i].name);
+    chartData.push(tagHashes[i].count);
   }
-  console.log(chartLabels, chartData);
 
   let data = {
     labels: chartLabels,

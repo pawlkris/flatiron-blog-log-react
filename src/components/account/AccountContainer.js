@@ -25,8 +25,4 @@ const AccountContainer = ({ user }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  user: state.users.filter(user => user.id === state.auth.currentUser.id)
-});
-
-export default withAuth(connect(mapStateToProps, actions)(AccountContainer));
+export default withAuth(connect(null, actions)(AccountContainer));

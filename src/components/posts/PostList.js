@@ -2,7 +2,7 @@ import React from "react";
 import Post from "./Post";
 import { connect } from "react-redux";
 import helper from "../../services/helper";
-import { Card, Container } from "semantic-ui-react";
+import { Card } from "semantic-ui-react";
 
 const PostsList = props => {
   const posts = props.posts.map((post, index) => (
@@ -10,9 +10,7 @@ const PostsList = props => {
   ));
   return (
     <div className="post-list">
-      <Container style={{ margin: "2% 0 0 0" }}>
-        <Card.Group>{posts}</Card.Group>
-      </Container>
+      <Card.Group>{posts}</Card.Group>
     </div>
   );
 };
@@ -76,7 +74,11 @@ const mapStateToProps = state => {
                   return 0;
                 }
               });
+            default:
+              return posts;
           }
+        default:
+          return posts;
       }
     });
   }

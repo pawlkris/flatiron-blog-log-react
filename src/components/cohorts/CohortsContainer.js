@@ -6,7 +6,6 @@ import CohortShow from "./CohortShow";
 import UserShow from "./UserShow";
 
 const CohortsContainer = props => {
-  console.log(props);
   return (
     <div className="cohort-container">
       <Switch>

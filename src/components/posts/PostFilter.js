@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { updatePostFilter } from "../../actions/filter";
-import { Button, Dropdown, Form, Segment, Header } from "semantic-ui-react";
+import { Button, Form, Segment, Header } from "semantic-ui-react";
+import helper from "../../services/helper";
 
 class PostFilter extends React.Component {
   state = {
@@ -20,18 +21,11 @@ class PostFilter extends React.Component {
   };
 
   handleSubmit = (event, data) => {
-    event.preventDefault();
     this.props.updatePostFilter(this.state);
   };
 
   render() {
-    console.log(this.state);
-    let cohortOptions = this.props.cohorts.map((cohort, index) => ({
-      key: index,
-      text: cohort.name,
-      value: cohort.id
-    }));
-    cohortOptions.unshift({ key: "", text: "", value: "" });
+    let cohortOptions = helper.cohortsObjForDropdown(this.props.cohorts);
 
     let sortOptions = [
       { key: "", text: "", value: "" },
@@ -44,7 +38,7 @@ class PostFilter extends React.Component {
 
     return (
       <div className="post-filter">
-        <Segment style={{ margin: "2% 15%" }}>
+        <Segment style={{ margin: "2% 10%" }}>
           <Header as="h1">Search Blog Posts</Header>
 
           <Form onSubmit={event => this.handleSubmit(event, this.state)}>
@@ -53,14 +47,13 @@ class PostFilter extends React.Component {
               value={this.state.title}
               onChange={event => this.handleChange(event, "title")}
             />
+            <Form.Input
+              label="Tag:"
+              type="text"
+              value={this.state.tag}
+              onChange={event => this.handleChange(event, "tag")}
+            />
             <Form.Group>
-              <Form.Input
-                label="Tag:"
-                type="text"
-                width="8"
-                value={this.state.tag}
-                onChange={event => this.handleChange(event, "tag")}
-              />
               <Form.Select
                 label="Cohort:"
                 value={this.state.cohort}

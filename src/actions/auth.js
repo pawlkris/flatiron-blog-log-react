@@ -1,4 +1,9 @@
-import { SET_CURRENT_USER, LOGOUT_USER, LOGIN_ERROR } from "./types";
+import {
+  SET_CURRENT_USER,
+  LOGOUT_USER,
+  LOGIN_ERROR,
+  REMOVE_LOGIN_ERROR
+} from "./types";
 import api from "../services/api";
 
 export const setCurrentUser = () => dispatch => {
@@ -22,4 +27,8 @@ export const loginUser = (username, password, history) => dispatch => {
 export const logoutUser = () => {
   localStorage.removeItem("token");
   return { type: LOGOUT_USER };
+};
+
+export const removeLoginError = () => {
+  return { type: REMOVE_LOGIN_ERROR };
 };

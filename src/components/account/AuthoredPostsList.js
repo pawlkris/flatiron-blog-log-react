@@ -7,7 +7,7 @@ const AuthoredPostsList = props => {
     <AuthoredPost {...post} mediumUsername={props.mediumUsername} key={index} />
   ));
   return (
-    <div className="authored-posts-list">
+    <div className="authored-posts-list ui container">
       <h2>Your Posts</h2>
       {authored}
     </div>

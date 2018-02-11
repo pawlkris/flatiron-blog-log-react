@@ -7,8 +7,8 @@ const LikedPostsList = props => {
     <LikedPost {...post} userId={props.userId} key={index} />
   ));
   return (
-    <div className="liked-posts-list">
-      <h2>Your Saved Posts</h2>
+    <div className="liked-posts-list ui container">
+      <h2>Your Library</h2>
       {liked}
     </div>
   );

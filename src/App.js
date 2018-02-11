@@ -2,7 +2,6 @@ import "semantic-ui-css/semantic.min.css";
 import React, { Component } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Container } from "semantic-ui-react";
 import { setCurrentUser } from "./actions/auth";
 import { fetchData } from "./actions";
 
@@ -26,40 +25,49 @@ class App extends Component {
     }
   }
   render() {
+    console.log(this.props.asyncLoading);
     return (
       <div className="App">
         <Navbar />
-        <Container />
-        <Switch>
-          <Route
-            path="/login"
-            render={routerProps => <Login {...routerProps} />}
-          />
-          <Route
-            path="/signup"
-            render={routerProps => <Signup {...routerProps} />}
-          />
-          <Route
-            path="/posts"
-            render={routerProps => <PostsContainer {...routerProps} />}
-          />
-          <Route
-            path="/cohorts"
-            render={routerProps => <CohortsContainer {...routerProps} />}
-          />
-          <Route
-            path="/account"
-            render={routerProps => <AccountContainer {...routerProps} />}
-          />
-          <Route
-            path="/dashboard"
-            render={routerProps => <DashboardContainer {...routerProps} />}
-          />
-        </Switch>
-        <Container />
+        {!!this.props.asyncLoading ? (
+          <div>Loading</div>
+        ) : (
+          <Switch>
+            <Route
+              path="/login"
+              render={routerProps => <Login {...routerProps} />}
+            />
+            <Route
+              path="/signup"
+              render={routerProps => <Signup {...routerProps} />}
+            />
+            <Route
+              path="/posts"
+              render={routerProps => <PostsContainer {...routerProps} />}
+            />
+            <Route
+              path="/cohorts"
+              render={routerProps => <CohortsContainer {...routerProps} />}
+            />
+            <Route
+              path="/account"
+              render={routerProps => <AccountContainer {...routerProps} />}
+            />
+            <Route
+              path="/dashboard"
+              render={routerProps => <DashboardContainer {...routerProps} />}
+            />
+          </Switch>
+        )}
       </div>
     );
   }
 }
 
-export default withRouter(connect(null, { fetchData, setCurrentUser })(App));
+const mapStateToProps = state => {
+  return { asyncLoading: state.asyncLoading };
+};
+
+export default withRouter(
+  connect(mapStateToProps, { fetchData, setCurrentUser })(App)
+);
