@@ -17,7 +17,6 @@ const Navbar = props => {
             <Icon name="bar chart" />
             Blog Stats
           </Menu.Item>
-          \{" "}
           <Menu.Item as={Link} to="/cohorts" position="right">
             <Icon name="find" />
             Browse Cohorts
@@ -60,7 +59,6 @@ const Navbar = props => {
             <Icon name="bar chart" />
             Blog Stats
           </Menu.Item>
-          \{" "}
           <Menu.Item as={Link} to="/cohorts" position="right">
             <Icon name="find" />
             Browse Cohorts
@@ -68,6 +66,10 @@ const Navbar = props => {
           <Menu.Item as={Link} to="/posts" position="right">
             <Icon name="search" />
             Search Posts
+          </Menu.Item>
+          <Menu.Item as={Link} to="/login" position="right">
+            <Icon name="sign in" />
+            Login
           </Menu.Item>
         </div>
       )}

@@ -12,29 +12,19 @@ const CohortsContainer = props => {
         <Route
           path="/cohorts/users/:id"
           render={({ match }) => {
-            let user = "";
-            if (props.users.length > 0) {
-              user = props.users.find(
-                user => user.id === parseInt(match.params.id, 10)
-              );
-            }
-            return user ? <UserShow user={user} /> : <div>Loading...</div>;
+            let user = props.users.find(
+              user => user.id === parseInt(match.params.id, 10)
+            );
+            return <UserShow user={user} />;
           }}
         />
         <Route
           path="/cohorts/:id"
           render={({ match }) => {
-            let cohort = "";
-            if (props.cohorts.length > 0) {
-              cohort = props.cohorts.find(
-                cohort => cohort.id === parseInt(match.params.id, 10)
-              );
-            }
-            return cohort ? (
-              <CohortShow cohort={cohort} />
-            ) : (
-              <div>Loading...</div>
+            let cohort = props.cohorts.find(
+              cohort => cohort.id === parseInt(match.params.id, 10)
             );
+            return <CohortShow cohort={cohort} />;
           }}
         />
         <Route
@@ -53,13 +43,10 @@ const CohortsContainer = props => {
 };
 
 const mapStateToProps = state => {
-  let cohorts = [];
-  let users = [];
-  if (state.users.length > 0) {
-    cohorts = state.cohorts;
-    users = state.users;
-  }
-  return { cohorts, users };
+  return {
+    cohorts: state.cohorts,
+    users: state.users
+  };
 };
 
 export default connect(mapStateToProps, null)(CohortsContainer);

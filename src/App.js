@@ -4,7 +4,7 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./actions/auth";
 import { fetchData } from "./actions";
-
+import { Loader } from "semantic-ui-react";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -25,14 +25,11 @@ class App extends Component {
     }
   }
   render() {
-    console.log(this.props.asyncLoading);
     return (
       <div className="App">
         <Navbar />
-        {!!this.props.asyncLoading ||
-        (this.props.cohorts > 1 && this.props.users > 1) ? (
-          <div>Loading</div>
-        ) : (
+        {!this.props.asyncLoading &&
+        (this.props.cohorts.length && this.props.users.length) ? (
           <Switch>
             <Route
               path="/login"
@@ -59,6 +56,11 @@ class App extends Component {
               render={routerProps => <DashboardContainer {...routerProps} />}
             />
           </Switch>
+        ) : (
+          <div>
+            <h2>Loading...</h2>
+            <Loader active />
+          </div>
         )}
       </div>
     );

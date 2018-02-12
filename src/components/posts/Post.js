@@ -14,7 +14,9 @@ const Post = props => {
         <Link to={`/posts/${props.post.id}`}>
           <h3>{props.post.title}</h3>
         </Link>
-        <a href={medium_url}>View on Medium</a>
+        <a href={medium_url}>
+          <Icon name="medium" />View on Medium
+        </a>
       </Card.Content>
       {!!props.userId &&
         (props.likedPosts.includes(props.post.id) ? (

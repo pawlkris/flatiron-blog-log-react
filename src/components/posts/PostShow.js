@@ -55,9 +55,11 @@ const PostShow = props => {
 
 const mapStateToProps = state => ({
   userId: !!state.auth.currentUser.id ? state.auth.currentUser.id : null,
-  likedPosts: state.users
-    .find(user => user.id === state.auth.currentUser.id)
-    .fan_posts.map(post => post.liked_post.id)
+  likedPosts: !state.auth.currentUser.id
+    ? []
+    : state.users
+        .find(user => user.id === state.auth.currentUser.id)
+        .fan_posts.map(post => post.liked_post.id)
 });
 
 export default connect(mapStateToProps, { addLibraryPost })(PostShow);

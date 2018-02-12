@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteLibraryPost } from "../../actions/library";
 import helper from "../../services/helper";
-import { Segment, Card, Button, Icon } from "semantic-ui-react";
+import { Card, Button, Icon } from "semantic-ui-react";
 
 const LikedPost = ({ id, userId, liked_post, deleteLibraryPost }) => {
   let medium_url = `https://medium.com/@${liked_post.author.medium_username}/${

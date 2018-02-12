@@ -36,13 +36,12 @@ const AccountHome = props => {
 
 const mapStateToProps = state => {
   let user;
-  let clapCount;
   if (state.users.length > 0) {
     user = state.users.find(user => user.id === state.auth.currentUser.id);
-    let clapArr = user.authored_posts.map(post => post.claps);
-    clapCount = clapArr.reduce((acc, curr) => acc + parseInt(curr.claps, 10));
+    // let clapArr = user.authored_posts.map(post => post.claps);
+    // clapCount = clapArr.reduce((acc, curr) => acc + parseInt(curr.claps, 10));
   }
-  return { user, clapCount };
+  return { user };
 };
 
 export default connect(mapStateToProps, null)(AccountHome);
