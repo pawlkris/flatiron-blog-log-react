@@ -18,11 +18,13 @@ const AccountHome = props => {
         <strong>Name:</strong> {props.user.name}
       </p>
       <p>
-        <strong>Posts:</strong> {props.user.authored_posts.length}
+        <strong>Email:</strong> {props.user.email}
       </p>
       <p>
-        <strong>Total Claps: </strong>
-        {props.clapCount}
+        <strong>Github:</strong> {props.user.github}
+      </p>
+      <p>
+        <strong>Posts:</strong> {props.user.authored_posts.length}
       </p>
     </div>
   ) : (

@@ -33,59 +33,41 @@ const Navbar = props => {
           >
             <Dropdown.Menu>
               <Dropdown.Item as={Link} to="/account">
-                <Link to="/account" style={{ color: "rgb(30,122,202)" }}>
-                  Account Home
-                </Link>
+                <div style={{ color: "rgb(30,122,202)" }}> Account Home</div>
               </Dropdown.Item>
               <Dropdown.Item as={Link} to="/account/library">
-                <Link
-                  to="/account/library"
-                  style={{ color: "rgb(30,122,202)" }}
-                >
-                  Saved Posts
-                </Link>
+                <div style={{ color: "rgb(30,122,202)" }}>Saved Posts</div>
               </Dropdown.Item>
               <Dropdown.Item as={Link} to="/account/your-posts">
-                <Link
-                  to="/account/your-posts"
-                  style={{ color: "rgb(30,122,202)" }}
-                >
-                  Your Posts
-                </Link>
+                <div style={{ color: "rgb(30,122,202)" }}>Your Posts</div>
               </Dropdown.Item>
               <Dropdown.Item as={Link} to="/account/edit">
-                <Link to="/account/edit" style={{ color: "rgb(30,122,202)" }}>
+                <div style={{ color: "rgb(30,122,202)" }}>
                   Edit Account Info
-                </Link>
+                </div>
               </Dropdown.Item>
               <Dropdown.Item as={Link} to="/account" onClick={props.logoutUser}>
-                <Link
-                  to="/login"
-                  onClick={props.logoutUser}
-                  style={{ color: "rgb(30,122,202)" }}
-                >
+                <div style={{ color: "rgb(30,122,202)" }}>
                   <Icon name="sign out" />Logout
-                </Link>
+                </div>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
       ) : (
         <div className="right menu">
-          <Menu.Item position="right">
-            <Link to="/dashboard">
-              <i className="bar chart icon" />
-              Blog Stats
-            </Link>
+          <Menu.Item as={Link} to="/dashboard" position="right">
+            <Icon name="bar chart" />
+            Blog Stats
           </Menu.Item>
-          <Menu.Item position="right">
-            <Link to="/cohorts">Browse Cohorts</Link>
+          \{" "}
+          <Menu.Item as={Link} to="/cohorts" position="right">
+            <Icon name="find" />
+            Browse Cohorts
           </Menu.Item>
-          <Menu.Item position="right">
-            <Link to="/posts">Search Posts</Link>
-          </Menu.Item>
-          <Menu.Item position="right">
-            <Link to="/login">Log In</Link>
+          <Menu.Item as={Link} to="/posts" position="right">
+            <Icon name="search" />
+            Search Posts
           </Menu.Item>
         </div>
       )}

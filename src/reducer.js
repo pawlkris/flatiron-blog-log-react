@@ -94,7 +94,7 @@ const usersReducer = (state = [], action) => {
     case ADD_USER:
       return [...state, action.user];
     case EDIT_USER:
-      return [...noUser, action.user];
+      return [...noUser, action.updatedUser];
     default:
       return state;
   }
