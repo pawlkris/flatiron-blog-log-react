@@ -13,22 +13,18 @@ const Navbar = props => {
       </Menu.Item>
       {loggedIn ? (
         <div className="right menu">
-          <Menu.Item position="right">
-            <Link to="/dashboard">
-              <Icon name="bar chart" />
-              Blog Stats
-            </Link>
+          <Menu.Item as={Link} to="/dashboard" position="right">
+            <Icon name="bar chart" />
+            Blog Stats
           </Menu.Item>
-          <Menu.Item position="right">
-            <Link to="/cohorts">
-              <Icon name="find" />
-              Browse Cohorts
-            </Link>
+          \{" "}
+          <Menu.Item as={Link} to="/cohorts" position="right">
+            <Icon name="find" />
+            Browse Cohorts
           </Menu.Item>
-          <Menu.Item position="right">
+          <Menu.Item as={Link} to="/posts" position="right">
             <Icon name="search" />
-
-            <Link to="/posts">Search Posts</Link>
+            Search Posts
           </Menu.Item>
           <Dropdown
             item
@@ -36,12 +32,12 @@ const Navbar = props => {
             position="right"
           >
             <Dropdown.Menu>
-              <Dropdown.Item>
+              <Dropdown.Item as={Link} to="/account">
                 <Link to="/account" style={{ color: "rgb(30,122,202)" }}>
                   Account Home
                 </Link>
               </Dropdown.Item>
-              <Dropdown.Item>
+              <Dropdown.Item as={Link} to="/account/library">
                 <Link
                   to="/account/library"
                   style={{ color: "rgb(30,122,202)" }}
@@ -49,7 +45,7 @@ const Navbar = props => {
                   Saved Posts
                 </Link>
               </Dropdown.Item>
-              <Dropdown.Item>
+              <Dropdown.Item as={Link} to="/account/your-posts">
                 <Link
                   to="/account/your-posts"
                   style={{ color: "rgb(30,122,202)" }}
@@ -57,12 +53,12 @@ const Navbar = props => {
                   Your Posts
                 </Link>
               </Dropdown.Item>
-              <Dropdown.Item>
+              <Dropdown.Item as={Link} to="/account/edit">
                 <Link to="/account/edit" style={{ color: "rgb(30,122,202)" }}>
                   Edit Account Info
                 </Link>
               </Dropdown.Item>
-              <Dropdown.Item>
+              <Dropdown.Item as={Link} to="/account" onClick={props.logoutUser}>
                 <Link
                   to="/login"
                   onClick={props.logoutUser}

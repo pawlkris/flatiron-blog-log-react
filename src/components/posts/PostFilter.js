@@ -25,6 +25,7 @@ class PostFilter extends React.Component {
   };
 
   render() {
+    console.log("filter state", this.state);
     let cohortOptions = helper.cohortsObjForDropdown(this.props.cohorts);
 
     let sortOptions = [

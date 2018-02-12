@@ -1,7 +1,6 @@
 import React from "react";
 import Post from "./Post";
 import { connect } from "react-redux";
-import helper from "../../services/helper";
 import { Card } from "semantic-ui-react";
 
 const PostsList = props => {
@@ -28,14 +27,14 @@ const mapStateToProps = state => {
     }
     posts = users.map(user => user.authored_posts);
     posts = posts.reduce((acc, cur) => acc.concat(cur));
-
+    console.log(posts);
     Object.entries(filterObj).forEach(([key, value]) => {
       switch (key) {
         case "tag":
           return (posts = posts.filter(post =>
-            helper
-              .tagNames(post.tags)
-              .join(" - ")
+            post.tags
+              .map(tag => tag.name)
+              .join("")
               .toLowerCase()
               .includes(value.toLowerCase())
           ));
@@ -63,8 +62,8 @@ const mapStateToProps = state => {
                   return 0;
                 }
               });
-
             case "alpha-reverse":
+              console.log("alpha-rev");
               return posts.sort((b, a) => {
                 if (a.title.toLowerCase() > b.title.toLowerCase()) {
                   return 1;
@@ -74,6 +73,11 @@ const mapStateToProps = state => {
                   return 0;
                 }
               });
+            case "most-claps":
+              return posts.sort((a, b) => {
+                return b.claps - a.claps;
+              });
+
             default:
               return posts;
           }

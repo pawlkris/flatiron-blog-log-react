@@ -29,7 +29,8 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        {!!this.props.asyncLoading ? (
+        {!!this.props.asyncLoading ||
+        (this.props.cohorts > 1 && this.props.users > 1) ? (
           <div>Loading</div>
         ) : (
           <Switch>
@@ -65,7 +66,11 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  return { asyncLoading: state.asyncLoading };
+  return {
+    asyncLoading: state.asyncLoading,
+    users: state.users,
+    cohorts: state.cohorts
+  };
 };
 
 export default withRouter(

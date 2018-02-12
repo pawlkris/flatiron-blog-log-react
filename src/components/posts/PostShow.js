@@ -22,7 +22,7 @@ const PostShow = props => {
         </h3>
         <h3>
           <strong>Author:</strong>{" "}
-          <Link to={`/users/${props.post.author.id}`}>
+          <Link to={`/cohorts/users/${props.post.author.id}`}>
             {props.post.author.name}
           </Link>
         </h3>
