@@ -40,11 +40,8 @@ class PostsContainer extends React.Component {
 }
 
 const mapStateToProps = state => {
-  let posts = [];
-  if (state.users.length > 0) {
-    posts = state.users.map(user => user.authored_posts);
-    posts = posts.reduce((acc, cur) => acc.concat(cur));
-  }
+  let posts = state.users.map(user => user.authored_posts);
+  posts = posts.reduce((acc, cur) => acc.concat(cur));
   return { posts };
 };
 

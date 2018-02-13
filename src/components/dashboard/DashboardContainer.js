@@ -34,7 +34,6 @@ const DashboardContainer = props => {
       }
     ]
   };
-  console.log(data);
 
   return (
     <div className="dashboard-container">
@@ -45,17 +44,12 @@ const DashboardContainer = props => {
 };
 
 const mapStateToProps = state => {
-  let tags = [];
-  let posts = [];
-
-  if (state.users.length > 0) {
-    let users = state.users;
-    posts = users.map(user => user.authored_posts);
-    posts = posts.reduce((acc, cur) => acc.concat(cur));
-    tags = posts.map(post => post.tags);
-    tags = tags.reduce((acc, cur) => acc.concat(cur));
-    tags = tags.map(tag => tag.name);
-  }
+  let users = state.users;
+  let posts = users.map(user => user.authored_posts);
+  posts = posts.reduce((acc, cur) => acc.concat(cur));
+  let tags = posts.map(post => post.tags);
+  tags = tags.reduce((acc, cur) => acc.concat(cur));
+  tags = tags.map(tag => tag.name);
 
   return { tags, posts };
 };

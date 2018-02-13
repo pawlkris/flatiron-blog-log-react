@@ -6,25 +6,37 @@ import helper from "../../services/helper";
 
 class EditAccountInfo extends React.Component {
   state = {
-    cohort_id: this.props.cohort_id,
-    email: this.props.email,
-    github: this.props.github,
-    id: this.props.userId,
+    cohort_id: this.props.user.cohort_id,
+    email: this.props.user.email === null ? "" : this.props.user.email,
+    github: this.props.user.github === null ? "" : this.props.user.github,
+    id: this.props.user.id,
     password: "",
-    emailValid: true
+    passwordConfirm: "",
+    emailValid: true,
+    passwordMatch: true
   };
 
   handleSubmit = () => {
-    if (this.state.email === "" || helper.validateEmail(this.state.email)) {
-      this.setState({ emailValid: true });
-      this.props.editUser(this.props.userId, this.state, this.props.history);
+    if (this.state.passwordMatch) {
+      if (this.state.email === "" || helper.validateEmail(this.state.email)) {
+        this.setState({ emailValid: true });
+        this.props.editUser(this.props.user.id, this.state, this.props.history);
+      } else {
+        this.setState({ emailValid: false });
+      }
+    }
+  };
+
+  passwordCheck = () => {
+    if (this.state.password !== this.state.passwordConfirm) {
+      this.setState({ passwordMatch: false });
     } else {
-      this.setState({ emailValid: false });
+      this.setState({ passwordMatch: true });
     }
   };
 
   handleChange = (event, attr) => {
-    this.setState({ [attr]: event.target.value });
+    this.setState({ [attr]: event.target.value }, this.passwordCheck);
   };
 
   handleDropdownChange = (key, data) => {
@@ -33,21 +45,17 @@ class EditAccountInfo extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      cohort_id: nextProps.cohort_id,
-      email: nextProps.email,
-      github: nextProps.github,
-      user_id: nextProps.user_id,
-      password: ""
+      cohort_id: nextProps.user.cohort_id,
+      email: nextProps.user.email,
+      github: nextProps.user.github,
+      user_id: nextProps.user.id,
+      password: "",
+      passwordConfirm: ""
     });
   }
 
   render() {
-    let cohortOptions = this.props.cohorts.map((cohort, index) => ({
-      key: index,
-      text: cohort.name,
-      value: cohort.id
-    }));
-    cohortOptions.unshift({ key: "", text: "", value: "" });
+    let cohortOptions = helper.cohortsObjForDropdown(this.props.cohorts);
     return (
       <div className="edit-account-info ui container">
         <Segment style={{ margin: "2% 10%" }}>
@@ -94,6 +102,21 @@ class EditAccountInfo extends React.Component {
               value={this.state.password}
               onChange={event => this.handleChange(event, "password")}
             />
+            <Form.Input
+              label="Confirm Password:"
+              type="password"
+              value={this.state.passwordConfirm}
+              onChange={event => this.handleChange(event, "passwordConfirm")}
+            />
+            {!this.state.passwordMatch ? (
+              <Message
+                error
+                header="Passwords do not match"
+                content="Please re-enter Password and Password Confirmation"
+              />
+            ) : (
+              ""
+            )}
             <Button>Submit</Button>
           </Form>
         </Segment>
@@ -103,34 +126,7 @@ class EditAccountInfo extends React.Component {
 }
 
 const mapStateToProps = state => {
-  let name = "";
-  let medium = "";
-  let github = "";
-  let email = "";
-  let cohort_id = "";
-  let image = "";
-  let currUserData = state.users.filter(
-    user => user.id === state.auth.currentUser.id
-  );
-  if (currUserData.length > 0) {
-    name = currUserData[0].name;
-    medium = currUserData[0].medium_username;
-    github = currUserData[0].github;
-    email = currUserData[0].email;
-    cohort_id = currUserData[0].cohort_id;
-    image = currUserData[0].image_slug;
-  }
-  let obj = {
-    name: name,
-    medium: medium,
-    github,
-    email,
-    cohort_id,
-    image,
-    cohorts: state.cohorts,
-    userId: state.auth.currentUser.id
-  };
-  console.log("mapStateToProps", obj);
-  return obj;
+  let user = state.users.find(user => user.id === state.auth.currentUser.id);
+  return { user, cohorts: state.cohorts };
 };
 export default connect(mapStateToProps, { editUser })(EditAccountInfo);

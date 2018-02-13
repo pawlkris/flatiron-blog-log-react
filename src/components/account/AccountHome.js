@@ -2,8 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 const AccountHome = props => {
-  console.log(props);
-  return !!props.user ? (
+  return (
     <div className="account-home ui container">
       <img
         src={`https://cdn-images-1.medium.com/fit/c/200/200/${
@@ -27,20 +26,11 @@ const AccountHome = props => {
         <strong>Posts:</strong> {props.user.authored_posts.length}
       </p>
     </div>
-  ) : (
-    <div>
-      <h1>Loading... </h1>
-    </div>
   );
 };
 
 const mapStateToProps = state => {
-  let user;
-  if (state.users.length > 0) {
-    user = state.users.find(user => user.id === state.auth.currentUser.id);
-    // let clapArr = user.authored_posts.map(post => post.claps);
-    // clapCount = clapArr.reduce((acc, curr) => acc + parseInt(curr.claps, 10));
-  }
+  let user = state.users.find(user => user.id === state.auth.currentUser.id);
   return { user };
 };
 

@@ -16,13 +16,8 @@ const LikedPostsList = props => {
 };
 
 const mapStateToProps = state => {
-  let posts = [];
-  if (
-    state.users.filter(user => user.id === state.auth.currentUser.id).length > 0
-  ) {
-    posts = state.users.filter(user => user.id === state.auth.currentUser.id)[0]
-      .fan_posts;
-  }
+  let posts = state.users.find(user => user.id === state.auth.currentUser.id)
+    .fan_posts;
   return { likedPosts: posts, userId: state.auth.currentUser.id };
 };
 
