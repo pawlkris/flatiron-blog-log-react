@@ -35,13 +35,13 @@ const UserShow = props => {
             ) : (
               "none"
             )}
+            {"   "}
             <Icon name="github" />
             {props.user.github ? (
               <a href={github_url}>{props.user.github}</a>
             ) : (
               "none"
-            )}{" "}
-            {"   "}
+            )}
           </p>
           <h3>{`${props.user.name.split(" ")[0]}'s Posts`}</h3>
           <UserPostList posts={props.user.authored_posts} />

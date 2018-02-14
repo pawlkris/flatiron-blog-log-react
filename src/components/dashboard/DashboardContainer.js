@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Bar } from "react-chartjs-2";
+import { Bar, Doughnut } from "react-chartjs-2";
 
 const DashboardContainer = props => {
   let uniqTags = [...new Set(props.tags)];
@@ -29,7 +29,7 @@ const DashboardContainer = props => {
     labels: chartLabels,
     datasets: [
       {
-        label: "Number of Posts with Tag",
+        label: "Blog Posts with Tag",
         data: chartData
       }
     ]
@@ -38,7 +38,7 @@ const DashboardContainer = props => {
   return (
     <div className="dashboard-container">
       <h1>Blogs by Tag</h1>
-      <Bar data={data} />
+      <Doughnut data={data} />
     </div>
   );
 };
