@@ -9,7 +9,7 @@ const LikedPostsList = props => {
   ));
   return (
     <div className="liked-posts-list ui container">
-      <h2>Your Library</h2>
+      <h2>Your Saved Posts</h2>
       <Card.Group>{liked}</Card.Group>
     </div>
   );

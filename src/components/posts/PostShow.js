@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { addLibraryPost } from "../../actions/library";
 import helper from "../../services/helper";
-import { Segment, Button, Icon } from "semantic-ui-react";
+import { Button, Icon } from "semantic-ui-react";
 
 const PostShow = props => {
   let tagNames =
@@ -13,42 +13,41 @@ const PostShow = props => {
   }`;
   return (
     <div className="post-show">
-      <Segment style={{ margin: "2% 15%" }}>
-        <h2>{props.post.title}</h2>
-        <h3>
-          <a href={medium_url}>
-            <Icon name="medium" /> View on Medium
-          </a>{" "}
-        </h3>
-        <h3>
-          <strong>Author:</strong>{" "}
-          <Link to={`/cohorts/users/${props.post.author.id}`}>
-            {props.post.author.name}
-          </Link>
-        </h3>
-        <h3>Date Posted: {helper.formatDate(props.post.date)}</h3>
-        <h3>
-          <strong>Reading Time:</strong> {props.post.reading_time} minutes
-        </h3>
-        <h3>Claps: {props.post.claps}</h3>
-        <div className="tag-box">
-          <strong>Tags:</strong> {tagNames}
-        </div>
-        {!!props.userId &&
-          (props.likedPosts.includes(props.post.id) ? (
-            <div>
-              <Icon name="book" />
-              This post is in your Library
-            </div>
-          ) : (
-            <Button
-              primary
-              onClick={() => props.addLibraryPost(props.userId, props.post)}
-            >
-              Save to Library
-            </Button>
-          ))}
-      </Segment>
+      <h2>{props.post.title}</h2>
+      <h3>
+        <a href={medium_url}>
+          <Icon name="medium" /> View on Medium
+        </a>{" "}
+      </h3>
+      <h3>
+        <strong>Author:</strong>{" "}
+        <Link to={`/cohorts/users/${props.post.author.id}`}>
+          {props.post.author.name}
+        </Link>
+      </h3>
+      <h3>Date Posted: {helper.formatDate(props.post.date)}</h3>
+      <h3>
+        <strong>Reading Time:</strong> {props.post.reading_time} minutes
+      </h3>
+      <h3>Claps: {props.post.claps}</h3>
+      <div className="tag-box">
+        <strong>Tags:</strong> {tagNames}
+      </div>
+      {!!props.userId &&
+        (props.likedPosts.includes(props.post.id) ? (
+          <div>
+            <Icon name="book" />
+            This post is in your Library
+          </div>
+        ) : (
+          <Button
+            primary
+            onClick={() => props.addLibraryPost(props.userId, props.post)}
+          >
+            <Icon name="bookmark" />
+            Save Post
+          </Button>
+        ))}
     </div>
   );
 };

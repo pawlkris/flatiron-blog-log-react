@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { updatePostFilter } from "../../actions/filter";
-import { Button, Form, Segment, Header } from "semantic-ui-react";
+import { Button, Form, Container, Header } from "semantic-ui-react";
 import helper from "../../services/helper";
 
 class PostFilter extends React.Component {
@@ -39,7 +39,7 @@ class PostFilter extends React.Component {
 
     return (
       <div className="post-filter">
-        <Segment style={{ margin: "2% 10%" }}>
+        <Container style={{ margin: "2% 10%" }}>
           <Header as="h1">Search Blog Posts</Header>
 
           <Form onSubmit={event => this.handleSubmit(event, this.state)}>
@@ -72,9 +72,10 @@ class PostFilter extends React.Component {
                 options={sortOptions}
               />
             </Form.Group>
+            <br />
             <Button>Submit</Button>
           </Form>
-        </Segment>
+        </Container>
       </div>
     );
   }

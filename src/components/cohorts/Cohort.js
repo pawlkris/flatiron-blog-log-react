@@ -1,13 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Card } from "semantic-ui-react";
 
 const Cohort = props => {
   return (
-    <div className="cohort">
-      <Link to={`/cohorts/${props.cohort.id}`}>
-        <h2>{props.cohort.name}</h2>
-      </Link>
-    </div>
+    <Card centered>
+      <Card.Content>
+        <Link to={`/cohorts/${props.cohort.id}`}>
+          <h3>{props.cohort.name}</h3>
+        </Link>
+      </Card.Content>
+      <Card.Meta>{props.cohort.users.length} Users</Card.Meta>
+    </Card>
   );
 };
 

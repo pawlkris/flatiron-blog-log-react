@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, Form, Segment, Message } from "semantic-ui-react";
+import { Button, Form, Message } from "semantic-ui-react";
 import { editUser } from "../../actions";
 import helper from "../../services/helper";
 
@@ -58,68 +58,66 @@ class EditAccountInfo extends React.Component {
     let cohortOptions = helper.cohortsObjForDropdown(this.props.cohorts);
     return (
       <div className="edit-account-info ui container">
-        <Segment style={{ margin: "2% 10%" }}>
-          <h2>Edit Account Info</h2>
-          <Form
-            error
-            success
-            align="left"
-            style={{ margin: " 2% 20%" }}
-            onSubmit={this.handleSubmit}
-          >
-            <Form.Select
-              label="Cohort:"
-              value={this.state.cohort_id}
-              onChange={(event, data) =>
-                this.handleDropdownChange("cohort_id", data)
-              }
-              options={cohortOptions}
+        <h2>Edit Account Info</h2>
+        <Form
+          error
+          success
+          align="left"
+          style={{ margin: " 2% 20%" }}
+          onSubmit={this.handleSubmit}
+        >
+          <Form.Select
+            label="Cohort:"
+            value={this.state.cohort_id}
+            onChange={(event, data) =>
+              this.handleDropdownChange("cohort_id", data)
+            }
+            options={cohortOptions}
+          />
+          <Form.Input
+            label="Email:"
+            type="text"
+            value={this.state.email}
+            onChange={event => this.handleChange(event, "email")}
+          />
+          {!this.state.emailValid ? (
+            <Message
+              error
+              header="Invalid Email"
+              content="Please enter a valid email address or remove email address"
             />
-            <Form.Input
-              label="Email:"
-              type="text"
-              value={this.state.email}
-              onChange={event => this.handleChange(event, "email")}
+          ) : (
+            ""
+          )}
+          <Form.Input
+            label="Github Username:"
+            type="text"
+            value={this.state.github}
+            onChange={event => this.handleChange(event, "github")}
+          />
+          <Form.Input
+            label="Change Password:"
+            type="password"
+            value={this.state.password}
+            onChange={event => this.handleChange(event, "password")}
+          />
+          <Form.Input
+            label="Confirm Password:"
+            type="password"
+            value={this.state.passwordConfirm}
+            onChange={event => this.handleChange(event, "passwordConfirm")}
+          />
+          {!this.state.passwordMatch ? (
+            <Message
+              error
+              header="Passwords do not match"
+              content="Please re-enter Password and Password Confirmation"
             />
-            {!this.state.emailValid ? (
-              <Message
-                error
-                header="Invalid Email"
-                content="Please enter a valid email address or remove email address"
-              />
-            ) : (
-              ""
-            )}
-            <Form.Input
-              label="Github Username:"
-              type="text"
-              value={this.state.github}
-              onChange={event => this.handleChange(event, "github")}
-            />
-            <Form.Input
-              label="Change Password:"
-              type="password"
-              value={this.state.password}
-              onChange={event => this.handleChange(event, "password")}
-            />
-            <Form.Input
-              label="Confirm Password:"
-              type="password"
-              value={this.state.passwordConfirm}
-              onChange={event => this.handleChange(event, "passwordConfirm")}
-            />
-            {!this.state.passwordMatch ? (
-              <Message
-                error
-                header="Passwords do not match"
-                content="Please re-enter Password and Password Confirmation"
-              />
-            ) : (
-              ""
-            )}
-            <Button>Submit</Button>
-          </Form>
-        </Segment>
+          ) : (
+            ""
+          )}
+          <Button>Submit</Button>
+        </Form>
       </div>
     );
   }

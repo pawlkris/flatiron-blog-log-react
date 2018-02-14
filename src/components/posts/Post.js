@@ -2,18 +2,31 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { addLibraryPost } from "../../actions/library";
-import { Card, Button, Icon } from "semantic-ui-react";
+import { Card, Button, Icon, Image } from "semantic-ui-react";
 
 const Post = props => {
   let medium_url = `https://medium.com/@${props.post.medium_username}/${
     props.post.slug
   }`;
+  console.log(props);
   return (
     <Card centered>
       <Card.Content>
+        <Image
+          floated="right"
+          size="mini"
+          src={`https://cdn-images-1.medium.com/fit/c/200/200/${
+            props.post.author.image_slug
+          }`}
+        />
+
         <Link to={`/posts/${props.post.id}`}>
           <h3>{props.post.title}</h3>
         </Link>
+        <Link to={`/cohorts/users/${props.post.author.id}`}>
+          {props.post.author.name}
+        </Link>
+        <br />
         <a href={medium_url}>
           <Icon name="medium" />View on Medium
         </a>
@@ -30,7 +43,8 @@ const Post = props => {
             primary
             onClick={() => props.addLibraryPost(props.userId, props.post)}
           >
-            Save to Library
+            <Icon name="bookmark" />
+            Save Post
           </Button>
         ))}
     </Card>

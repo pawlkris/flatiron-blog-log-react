@@ -7,7 +7,7 @@ import { Menu, Dropdown, Icon } from "semantic-ui-react";
 const Navbar = props => {
   const loggedIn = !!props.currentUser.id;
   return (
-    <Menu inverted color="blue">
+    <Menu inverted fixed="top" atached="top" color="blue">
       <Menu.Item header>
         <h1>Flatiron Blog Log</h1>
       </Menu.Item>

@@ -27,7 +27,8 @@ class Signup extends Component {
   };
 
   handleSubmit = (event, user, history) => {
-    if (this.props.passwordMatch) {
+    if (this.state.passwordMatch) {
+      console.log("entered");
       this.props.newUser(user, history);
     }
   };

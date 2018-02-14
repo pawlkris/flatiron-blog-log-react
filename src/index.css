@@ -15,3 +15,11 @@ body {
 .tag-box {
   margin: 5% 1%;
 }
+
+.padding-top {
+  padding-top: 4rem;
+}
+
+.ui .card {
+  background-color: #d9e8f9;
+}

@@ -4,7 +4,7 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./actions/auth";
 import { fetchData } from "./actions";
-import { Loader } from "semantic-ui-react";
+import { Loader, Container, Segment } from "semantic-ui-react";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -28,40 +28,58 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        {!this.props.asyncLoading &&
-        (this.props.cohorts.length && this.props.users.length) ? (
-          <Switch>
-            <Route
-              path="/login"
-              render={routerProps => <Login {...routerProps} />}
-            />
-            <Route
-              path="/signup"
-              render={routerProps => <Signup {...routerProps} />}
-            />
-            <Route
-              path="/posts"
-              render={routerProps => <PostsContainer {...routerProps} />}
-            />
-            <Route
-              path="/cohorts"
-              render={routerProps => <CohortsContainer {...routerProps} />}
-            />
-            <Route
-              path="/account"
-              render={routerProps => <AccountContainer {...routerProps} />}
-            />
-            <Route
-              path="/dashboard"
-              render={routerProps => <DashboardContainer {...routerProps} />}
-            />
-          </Switch>
-        ) : (
-          <div>
-            <h2>Loading...</h2>
-            <Loader active />
-          </div>
-        )}
+        <div className="padding-top">
+          <Container style={{ margin: "2% 0" }}>
+            <Segment style={{ margin: " 2% 1%", minHeight: 500 }}>
+              {!this.props.asyncLoading &&
+              (this.props.cohorts.length && this.props.users.length) ? (
+                <Switch>
+                  <Route
+                    path="/login"
+                    render={routerProps => <Login {...routerProps} />}
+                  />
+                  <Route
+                    path="/signup"
+                    render={routerProps => <Signup {...routerProps} />}
+                  />
+                  <Route
+                    path="/posts"
+                    render={routerProps => <PostsContainer {...routerProps} />}
+                  />
+                  <Route
+                    path="/cohorts"
+                    render={routerProps => (
+                      <CohortsContainer {...routerProps} />
+                    )}
+                  />
+                  <Route
+                    path="/account"
+                    render={routerProps => (
+                      <AccountContainer {...routerProps} />
+                    )}
+                  />
+                  <Route
+                    path="/dashboard"
+                    render={routerProps => (
+                      <DashboardContainer {...routerProps} />
+                    )}
+                  />
+                </Switch>
+              ) : (
+                <div style={{ minHeight: 700 }}>
+                  <br />
+                  <h2>Loading...</h2>
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <Loader active />
+                </div>
+              )}
+            </Segment>
+          </Container>
+        </div>
       </div>
     );
   }
