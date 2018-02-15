@@ -1,4 +1,4 @@
-const API_ROOT = `http://localhost:3001/api`;
+const API_ROOT = `https://flatiron-blog-log-backend.herokuapp.com/api`;
 
 const headers = {
   "Content-Type": "application/json",
