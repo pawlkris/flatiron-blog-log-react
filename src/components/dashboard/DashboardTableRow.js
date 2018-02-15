@@ -24,6 +24,7 @@ const mapStateToProps = (state, props) => {
   let updatedFilter = { ...state.postFilter };
   updatedFilter.cohort_id = state.dashboardFilter.cohort_id;
   updatedFilter.tag = props["name"];
+  updatedFilter.title = "";
   return { filter: updatedFilter };
 };
 
