@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser, removeLoginError } from "../actions/auth";
 import { removeNewUserMessage } from "../actions";
-import { Button, Form, Segment, Message } from "semantic-ui-react";
+import { Button, Form, Message } from "semantic-ui-react";
 
 class Login extends React.Component {
   state = {
@@ -28,45 +28,43 @@ class Login extends React.Component {
   render() {
     return (
       <div className="login">
-        <Segment style={{ margin: " 2% 20%" }}>
-          <Form onSubmit={this.handleSubmit} error success>
-            <Form.Input
-              label="Medium Username:"
-              type="text"
-              value={this.state.username}
-              onChange={event => this.handleChange(event, "username")}
+        <Form onSubmit={this.handleSubmit} error success>
+          <Form.Input
+            label="Medium Username:"
+            type="text"
+            value={this.state.username}
+            onChange={event => this.handleChange(event, "username")}
+          />
+          <Form.Input
+            label="Password:"
+            type="password"
+            value={this.state.password}
+            onChange={event => this.handleChange(event, "password")}
+          />
+          {!!this.props.loginError.status ? (
+            <Message
+              error
+              header="Login Error"
+              content={this.props.loginError.message}
             />
-            <Form.Input
-              label="Password:"
-              type="password"
-              value={this.state.password}
-              onChange={event => this.handleChange(event, "password")}
+          ) : (
+            ""
+          )}
+          {!!this.props.newSignup ? (
+            <Message
+              success
+              header="Account Created"
+              content="Please enter your credentials to log in."
             />
-            {!!this.props.loginError.status ? (
-              <Message
-                error
-                header="Login Error"
-                content={this.props.loginError.message}
-              />
-            ) : (
-              ""
-            )}
-            {!!this.props.newSignup ? (
-              <Message
-                success
-                header="Account Created"
-                content="Please enter your credentials to log in."
-              />
-            ) : (
-              ""
-            )}
-            <Button>Submit</Button>
-          </Form>
-          <br />
-          <Link to="/signup">
-            <Button>No Account? Sign up!</Button>
-          </Link>
-        </Segment>
+          ) : (
+            ""
+          )}
+          <Button>Submit</Button>
+        </Form>
+        <br />
+        <Link to="/signup">
+          <Button>No Account? Sign up!</Button>
+        </Link>
       </div>
     );
   }

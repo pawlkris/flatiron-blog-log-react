@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, Segment, Message } from "semantic-ui-react";
+import { Button, Form, Message } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { newUser, removeSignupError } from "../actions";
 
@@ -28,7 +28,6 @@ class Signup extends Component {
 
   handleSubmit = (event, user, history) => {
     if (this.state.passwordMatch) {
-      console.log("entered");
       this.props.newUser(user, history);
     }
   };
@@ -50,79 +49,75 @@ class Signup extends Component {
     cohortOptions.unshift({ key: "", text: "", value: "" });
     return (
       <div className="signup">
-        <Segment style={{ margin: " 2% 20%" }}>
-          <h2>Create an Account with your Medium Account</h2>
-          <Form
-            align="left"
-            error
-            style={{ margin: " 2% 20%" }}
-            onSubmit={event =>
-              this.handleSubmit(event, this.state, this.props.history)
+        <h2>Create an Account with your Medium Account</h2>
+        <Form
+          align="left"
+          error
+          style={{ margin: " 2% 20%" }}
+          onSubmit={event =>
+            this.handleSubmit(event, this.state, this.props.history)
+          }
+        >
+          <Form.Input
+            error={!!this.props.signupError.message.medium_username}
+            label="Medium Username:"
+            type="text"
+            value={this.state.medium_username}
+            onChange={event => this.handleChange(event, "medium_username")}
+          />
+          <Form.Input
+            error={
+              !this.state.passwordMatch ||
+              !!this.props.signupError.message.password
             }
-          >
-            <Form.Input
-              error={!!this.props.signupError.message.medium_username}
-              label="Medium Username:"
-              type="text"
-              value={this.state.medium_username}
-              onChange={event => this.handleChange(event, "medium_username")}
+            label="Password:"
+            type="password"
+            value={this.state.password}
+            onChange={event => this.handleChange(event, "password")}
+          />
+          <Form.Input
+            error={
+              !this.state.passwordMatch ||
+              !!this.props.signupError.message.password
+            }
+            label="Confirm Password:"
+            type="password"
+            value={this.state.passwordConfirm}
+            onChange={event => this.handleChange(event, "passwordConfirm")}
+          />
+          {!this.state.passwordMatch ? (
+            <Message
+              error
+              header="Passwords do not match"
+              content="Please re-enter Password and Password Confirmation"
             />
-            <Form.Input
-              error={
-                !this.state.passwordMatch ||
-                !!this.props.signupError.message.password
-              }
-              label="Password:"
-              type="password"
-              value={this.state.password}
-              onChange={event => this.handleChange(event, "password")}
-            />
-            <Form.Input
-              error={
-                !this.state.passwordMatch ||
-                !!this.props.signupError.message.password
-              }
-              label="Confirm Password:"
-              type="password"
-              value={this.state.passwordConfirm}
-              onChange={event => this.handleChange(event, "passwordConfirm")}
-            />
-            {!this.state.passwordMatch ? (
-              <Message
-                error
-                header="Passwords do not match"
-                content="Please re-enter Password and Password Confirmation"
-              />
-            ) : (
-              ""
-            )}
-            <Form.Select
-              error={!!this.props.signupError.message.cohort_id}
-              label="Cohort:"
-              value={this.state.cohort}
-              onChange={(event, data) =>
-                this.handleDropdownChange(event, "cohort_id", data)
-              }
-              options={cohortOptions}
-            />
-            <Form.Input
-              error={
-                !!this.state.email && !!this.props.signupError.message.email
-              }
-              label="Email:"
-              type="text"
-              value={this.state.email}
-              onChange={event => this.handleChange(event, "email")}
-            />
-            <Form.Input
-              label="Github Username:"
-              type="text"
-              value={this.state.github}
-              onChange={event => this.handleChange(event, "github")}
-            />
-            <Button>Submit</Button>
-          </Form>
-        </Segment>
+          ) : (
+            ""
+          )}
+          <Form.Select
+            error={!!this.props.signupError.message.cohort_id}
+            label="Cohort:"
+            value={this.state.cohort}
+            onChange={(event, data) =>
+              this.handleDropdownChange(event, "cohort_id", data)
+            }
+            options={cohortOptions}
+          />
+          <Form.Input
+            error={!!this.state.email && !!this.props.signupError.message.email}
+            label="Email:"
+            type="text"
+            value={this.state.email}
+            onChange={event => this.handleChange(event, "email")}
+          />
+          <Form.Input
+            label="Github Username:"
+            type="text"
+            value={this.state.github}
+            onChange={event => this.handleChange(event, "github")}
+          />
+          <Button>Submit</Button>
+        </Form>
       </div>
     );
   }

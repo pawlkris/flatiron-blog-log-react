@@ -1,57 +1,85 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Bar, Doughnut } from "react-chartjs-2";
+import DashboardFilter from "./DashboardFilter";
+import DashboardChart from "./DashboardChart";
+import DashboardTable from "./DashboardTable";
+import { Statistic, Grid, Header } from "semantic-ui-react";
 
-const DashboardContainer = props => {
-  let uniqTags = [...new Set(props.tags)];
-  let uniqTagCount = uniqTags.map(
-    tag => props.tags.filter(t => t === tag).length
-  );
-
-  let tagHashes = uniqTags.map((tag, index) => ({
-    name: tag,
-    count: uniqTagCount[index]
-  }));
-  tagHashes = tagHashes.sort((a, b) => {
-    return b.count - a.count;
-  });
-  tagHashes = tagHashes.filter(tag => tag.count > 3);
-  console.log(tagHashes);
-
-  let chartLabels = [];
-  let chartData = [];
-  for (let i = 0; i < tagHashes.length; i++) {
-    chartLabels.push(tagHashes[i].name);
-    chartData.push(tagHashes[i].count);
+class DashboardContainer extends React.Component {
+  render() {
+    let { users, posts, filter } = this.props;
+    if (filter.cohort_id) {
+      users = users.filter(user => user.cohort_id === filter.cohort_id);
+    }
+    let userTags = users
+      .reduce((acc, cur) => acc.concat(cur.authored_posts), [])
+      .reduce((acc, cur) => acc.concat(cur.tags), [])
+      .map(tag => tag.name);
+    let uniqTags = [...new Set(userTags)];
+    let uniqTagCount = uniqTags.map(
+      tag => userTags.filter(t => t === tag).length
+    );
+    let tagHashes = uniqTags.map((tag, index) => ({
+      name: tag,
+      count: uniqTagCount[index]
+    }));
+    tagHashes = tagHashes.sort((a, b) => {
+      return b.count - a.count;
+    });
+    console.log();
+    return (
+      <div className="dashboard-container">
+        <Header as="h1">BLOG STATS</Header>
+        <Grid centered>
+          <Grid.Row>
+            <Statistic.Group>
+              <Statistic>
+                <Statistic.Value>
+                  {filter.cohort_id
+                    ? posts.filter(
+                        post => post.author.cohort_id === filter.cohort_id
+                      ).length
+                    : posts.length}
+                </Statistic.Value>
+                <Statistic.Label>Blog Posts</Statistic.Label>
+              </Statistic>
+              <Statistic>
+                <Statistic.Value>{users.length}</Statistic.Value>
+                <Statistic.Label>Users</Statistic.Label>
+              </Statistic>
+              <Statistic>
+                <Statistic.Value>{uniqTags.length}</Statistic.Value>
+                <Statistic.Label>Unique Tags</Statistic.Label>
+              </Statistic>
+            </Statistic.Group>
+          </Grid.Row>
+          <Grid.Row centered>
+            <Grid.Column width={16}>
+              <DashboardFilter />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Header>Top Ten Blog Tags</Header>
+            <DashboardChart tagHashes={tagHashes} />
+            <Header>Frequency of All Tags</Header>
+            <DashboardTable tagHashes={tagHashes} />
+          </Grid.Row>
+        </Grid>
+      </div>
+    );
   }
-
-  let data = {
-    labels: chartLabels,
-    datasets: [
-      {
-        label: "Blog Posts with Tag",
-        data: chartData
-      }
-    ]
-  };
-
-  return (
-    <div className="dashboard-container">
-      <h1>Blogs by Tag</h1>
-      <Doughnut data={data} />
-    </div>
-  );
-};
+}
 
 const mapStateToProps = state => {
   let users = state.users;
   let posts = users.map(user => user.authored_posts);
   posts = posts.reduce((acc, cur) => acc.concat(cur));
-  let tags = posts.map(post => post.tags);
-  tags = tags.reduce((acc, cur) => acc.concat(cur));
-  tags = tags.map(tag => tag.name);
 
-  return { tags, posts };
+  return {
+    filter: state.dashboardFilter,
+    posts,
+    users
+  };
 };
 
 export default connect(mapStateToProps, null)(DashboardContainer);

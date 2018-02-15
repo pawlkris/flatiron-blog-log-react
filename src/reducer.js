@@ -14,7 +14,8 @@ import {
   REMOVE_LOGIN_ERROR,
   REMOVE_SIGNUP_ERROR,
   REMOVE_NEW_USER_MESSAGE,
-  ASYNC_START
+  ASYNC_START,
+  UPDATE_DASHBOARD_FILTER
 } from "./actions/types";
 import { combineReducers } from "redux";
 
@@ -146,6 +147,22 @@ const tagsReducer = (state = { allTags: [], filteredTags: [] }, action) => {
   }
 };
 
+const dashboardFilterReducer = (
+  state = {
+    cohort_id: "",
+    chartType: "",
+    minTags: 5
+  },
+  action
+) => {
+  switch (action.type) {
+    case UPDATE_DASHBOARD_FILTER:
+      return action.filter;
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
   auth: authReducer,
   cohorts: cohortsReducer,
@@ -155,7 +172,8 @@ const rootReducer = combineReducers({
   loginError: loginErrorReducer,
   signupError: signupErrorReducer,
   newSignup: newSignupReducer,
-  asyncLoading: asyncLoadingReducer
+  asyncLoading: asyncLoadingReducer,
+  dashboardFilter: dashboardFilterReducer
 });
 
 export default rootReducer;

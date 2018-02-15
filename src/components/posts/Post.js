@@ -8,7 +8,6 @@ const Post = props => {
   let medium_url = `https://medium.com/@${props.post.medium_username}/${
     props.post.slug
   }`;
-  console.log(props);
   return (
     <Card centered>
       <Card.Content>
