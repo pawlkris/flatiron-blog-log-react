@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import AuthoredPost from "./AuthoredPost";
-import { Card } from "semantic-ui-react";
+import { Card, Divider } from "semantic-ui-react";
 
 const AuthoredPostsList = props => {
   const authored = props.authoredPosts.map((post, index) => (
@@ -10,6 +10,7 @@ const AuthoredPostsList = props => {
   return (
     <div className="authored-posts-list ui container">
       <h2>Your Posts</h2>
+      <Divider />
       <Card.Group>{authored}</Card.Group>
     </div>
   );

@@ -7,8 +7,10 @@ const CohortPostList = props => {
   let posts = users
     .reduce((acc, curr) => acc.concat(curr.authored_posts), [])
     .sort((a, b) => b.date - a.date)
-    .slice(0, 10);
-  let cards = posts.map(post => <CohortPostCard post={post} />);
+    .slice(0, 15);
+  let cards = posts.map((post, index) => (
+    <CohortPostCard key={index} post={post} />
+  ));
   return <Card.Group>{cards} </Card.Group>;
 };
 

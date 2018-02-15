@@ -1,5 +1,5 @@
 import React from "react";
-import { Bar, Doughnut } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 
 const DashboardChart = props => {
   let { tagHashes } = props;

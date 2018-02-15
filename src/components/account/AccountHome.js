@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Grid, Segment, Header, Icon } from "semantic-ui-react";
+import { Grid, Segment, Header, Icon, Divider } from "semantic-ui-react";
 import CohortPostList from "./CohortPostList";
 
 const AccountHome = props => {
   let medium_url = `https://medium.com/@${props.user.medium_username}`;
   let github_url = `https://github.com/${props.user.github}`;
+  console.log(props);
   return (
     <Grid>
       <Grid.Row>
@@ -21,7 +22,7 @@ const AccountHome = props => {
             <strong>Name:</strong> {props.user.name}
           </p>
           <p>
-            Cohort:{" "}
+            <strong>Cohort:</strong>{" "}
             <Link to={`/cohorts/${props.userCohort.id}`}>
               {" "}
               {props.userCohort.name}
@@ -44,18 +45,30 @@ const AccountHome = props => {
             )}
           </p>
           <p>
-            <strong>Email:</strong> {props.user.email}
+            <Icon name="mail" />
+            {props.user.email ? props.user.email : "none"}
           </p>
-
           <p>
-            <strong>Your Posts:</strong> {props.user.authored_posts.length}
-            {"     "}
-            <strong>Saved Posts:</strong> {props.user.fan_posts.length}
+            <strong>Saved Posts:</strong>{" "}
+            <a href="/account/saved-posts">{props.user.fan_posts.length}</a>
+          </p>
+          <p>
+            <strong>Your Posts:</strong>{" "}
+            <a href="/account/your-posts">{props.user.authored_posts.length}</a>
+          </p>
+          <p>
+            <strong>Total Claps:</strong>{" "}
+            {props.user.authored_posts
+              .map(post => post.claps)
+              .reduce((acc, cur) => acc + cur)}
           </p>
         </Grid.Column>
-        <Grid.Column width={8}>
-          <Segment>
+        <Grid.Column width={9}>
+          <Segment
+            style={{ maxHeight: 480, overflow: "hidden", overflowY: "scroll" }}
+          >
             <Header>Recent Cohort Posts</Header>
+            <Divider />
             <CohortPostList cohort={props.userCohort} />
           </Segment>
         </Grid.Column>

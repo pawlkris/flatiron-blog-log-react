@@ -9,7 +9,7 @@ const CohortPostCard = props => {
     props.post.slug
   }`;
   return (
-    <Card>
+    <Card centered>
       <Card.Content>
         <Image
           floated="right"

@@ -26,36 +26,36 @@ class DashboardContainer extends React.Component {
     tagHashes = tagHashes.sort((a, b) => {
       return b.count - a.count;
     });
-    console.log();
     return (
       <div className="dashboard-container">
         <Header as="h1">BLOG STATS</Header>
         <Grid centered>
-          <Grid.Row>
-            <Statistic.Group>
-              <Statistic>
-                <Statistic.Value>
-                  {filter.cohort_id
-                    ? posts.filter(
-                        post => post.author.cohort_id === filter.cohort_id
-                      ).length
-                    : posts.length}
-                </Statistic.Value>
-                <Statistic.Label>Blog Posts</Statistic.Label>
-              </Statistic>
-              <Statistic>
-                <Statistic.Value>{users.length}</Statistic.Value>
-                <Statistic.Label>Users</Statistic.Label>
-              </Statistic>
-              <Statistic>
-                <Statistic.Value>{uniqTags.length}</Statistic.Value>
-                <Statistic.Label>Unique Tags</Statistic.Label>
-              </Statistic>
-            </Statistic.Group>
-          </Grid.Row>
           <Grid.Row centered>
-            <Grid.Column width={16}>
+            <Grid.Column width={4}>
               <DashboardFilter />
+            </Grid.Column>
+            <Grid.Column width={4} />
+            <Grid.Column width={4}>
+              <Statistic.Group horizontal>
+                <Statistic>
+                  <Statistic.Value>
+                    {filter.cohort_id
+                      ? posts.filter(
+                          post => post.author.cohort_id === filter.cohort_id
+                        ).length
+                      : posts.length}
+                  </Statistic.Value>
+                  <Statistic.Label>Blog Posts</Statistic.Label>
+                </Statistic>
+                <Statistic>
+                  <Statistic.Value>{users.length}</Statistic.Value>
+                  <Statistic.Label>Users</Statistic.Label>
+                </Statistic>
+                <Statistic>
+                  <Statistic.Value>{uniqTags.length}</Statistic.Value>
+                  <Statistic.Label>Unique Tags</Statistic.Label>
+                </Statistic>
+              </Statistic.Group>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>

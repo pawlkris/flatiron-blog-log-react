@@ -7,8 +7,8 @@ import { Menu, Dropdown, Icon } from "semantic-ui-react";
 const Navbar = props => {
   const loggedIn = !!props.currentUser.id;
   return (
-    <Menu inverted fixed="top" atached="top" color="blue">
-      <Menu.Item header>
+    <Menu inverted atached="top" color="blue" stackable>
+      <Menu.Item as={Link} to="/" header>
         <h1>Flatiron Blog Log</h1>
       </Menu.Item>
       {loggedIn ? (
@@ -34,7 +34,7 @@ const Navbar = props => {
               <Dropdown.Item as={Link} to="/account">
                 <div style={{ color: "rgb(30,122,202)" }}> Account Home</div>
               </Dropdown.Item>
-              <Dropdown.Item as={Link} to="/account/library">
+              <Dropdown.Item as={Link} to="/account/saved-posts">
                 <div style={{ color: "rgb(30,122,202)" }}>Saved Posts</div>
               </Dropdown.Item>
               <Dropdown.Item as={Link} to="/account/your-posts">

@@ -5,7 +5,7 @@ export function updatePostFilter(formState) {
     type: UPDATE_POST_FILTER,
     tag: formState.tag,
     title: formState.title,
-    cohort: formState.cohort,
+    cohort: formState.cohort_id,
     sort: formState.sort
   };
 }

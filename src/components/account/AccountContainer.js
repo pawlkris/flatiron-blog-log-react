@@ -14,7 +14,7 @@ const AccountContainer = ({ user }) => {
       <Switch>
         <Route
           exact
-          path="/account/library"
+          path="/account/saved-posts"
           render={() => <LikedPostsList />}
         />
         <Route exact path="/account/your-posts" component={AuthoredPostsList} />

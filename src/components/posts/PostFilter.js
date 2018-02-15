@@ -8,7 +8,7 @@ class PostFilter extends React.Component {
   state = {
     tag: this.props.filter.tag,
     title: this.props.filter.title,
-    cohort: this.props.filter.cohort,
+    cohort_id: this.props.filter.cohort_id,
     sort: this.props.filter.sort
   };
 
@@ -57,9 +57,9 @@ class PostFilter extends React.Component {
             <Form.Group>
               <Form.Select
                 label="Cohort:"
-                value={this.state.cohort}
+                value={this.state.cohort_id}
                 onChange={(event, data) =>
-                  this.handleDropdownChange(event, "cohort", data)
+                  this.handleDropdownChange(event, "cohort_id", data)
                 }
                 options={cohortOptions}
               />

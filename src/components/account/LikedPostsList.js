@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import LikedPost from "./LikedPost";
-import { Card } from "semantic-ui-react";
+import { Card, Divider } from "semantic-ui-react";
 
 const LikedPostsList = props => {
   const liked = props.likedPosts.map((post, index) => (
@@ -10,6 +10,7 @@ const LikedPostsList = props => {
   return (
     <div className="liked-posts-list ui container">
       <h2>Your Saved Posts</h2>
+      <Divider />
       <Card.Group>{liked}</Card.Group>
     </div>
   );

@@ -8,6 +8,7 @@ import { Loader, Container, Segment } from "semantic-ui-react";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Splash from "./components/Splash";
 import AccountContainer from "./components/account/AccountContainer";
 import PostsContainer from "./components/posts/PostsContainer";
 import CohortsContainer from "./components/cohorts/CohortsContainer";
@@ -28,58 +29,47 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        <div className="padding-top">
-          <Container style={{ margin: "2% 0" }}>
-            <Segment style={{ margin: " 2% 1%", minHeight: 500 }}>
-              {!this.props.asyncLoading &&
-              (this.props.cohorts.length && this.props.users.length) ? (
-                <Switch>
-                  <Route
-                    path="/login"
-                    render={routerProps => <Login {...routerProps} />}
-                  />
-                  <Route
-                    path="/signup"
-                    render={routerProps => <Signup {...routerProps} />}
-                  />
-                  <Route
-                    path="/posts"
-                    render={routerProps => <PostsContainer {...routerProps} />}
-                  />
-                  <Route
-                    path="/cohorts"
-                    render={routerProps => (
-                      <CohortsContainer {...routerProps} />
-                    )}
-                  />
-                  <Route
-                    path="/account"
-                    render={routerProps => (
-                      <AccountContainer {...routerProps} />
-                    )}
-                  />
-                  <Route
-                    path="/dashboard"
-                    render={routerProps => (
-                      <DashboardContainer {...routerProps} />
-                    )}
-                  />
-                </Switch>
-              ) : (
-                <div style={{ minHeight: 700 }}>
-                  <br />
-                  <h2>Loading...</h2>
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <Loader active />
-                </div>
-              )}
-            </Segment>
-          </Container>
-        </div>
+        <Container style={{ margin: "2% 0" }}>
+          <Segment style={{ margin: " 2% 1%", minHeight: 500 }}>
+            {!this.props.asyncLoading &&
+            (this.props.cohorts.length && this.props.users.length) ? (
+              <Switch>
+                <Route
+                  path="/login"
+                  render={routerProps => <Login {...routerProps} />}
+                />
+                <Route
+                  path="/signup"
+                  render={routerProps => <Signup {...routerProps} />}
+                />
+                <Route
+                  path="/posts"
+                  render={routerProps => <PostsContainer {...routerProps} />}
+                />
+                <Route
+                  path="/cohorts"
+                  render={routerProps => <CohortsContainer {...routerProps} />}
+                />
+                <Route
+                  path="/account"
+                  render={routerProps => <AccountContainer {...routerProps} />}
+                />
+                <Route
+                  path="/dashboard"
+                  render={routerProps => (
+                    <DashboardContainer {...routerProps} />
+                  )}
+                />
+                <Route path="/" component={Splash} />
+              </Switch>
+            ) : (
+              <div style={{ minHeight: 500 }}>
+                <h2>Loading...</h2>
+                <Loader active />
+              </div>
+            )}
+          </Segment>
+        </Container>
       </div>
     );
   }

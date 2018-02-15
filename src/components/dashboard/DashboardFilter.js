@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { updateDashboardFilter } from "../../actions/filter";
-import { Button, Form, Container, Header } from "semantic-ui-react";
+import { Button, Form, Header } from "semantic-ui-react";
 import helper from "../../services/helper";
 
 class DashboardFilter extends React.Component {
@@ -28,23 +28,21 @@ class DashboardFilter extends React.Component {
 
     return (
       <div className="post-filter">
-        <Container style={{ margin: "2% 10%" }}>
-          <Header as="h3">Dashboard Filter </Header>
+        <Header as="h3">Dashboard Filter </Header>
 
-          <Form onSubmit={event => this.handleSubmit(event, this.state)}>
-            <Form.Select
-              width={4}
-              label="Cohort:"
-              value={this.state.cohort_id}
-              onChange={(event, data) =>
-                this.handleDropdownChange(event, "cohort_id", data)
-              }
-              options={cohortOptions}
-            />
-            <br />
-            <Button floated="left">Submit</Button>
-          </Form>
-        </Container>
+        <Form onSubmit={event => this.handleSubmit(event, this.state)}>
+          <Form.Select
+            width={4}
+            label="Cohort:"
+            value={this.state.cohort_id}
+            onChange={(event, data) =>
+              this.handleDropdownChange(event, "cohort_id", data)
+            }
+            options={cohortOptions}
+          />
+          <br />
+          <Button floated="left">Submit</Button>
+        </Form>
       </div>
     );
   }
