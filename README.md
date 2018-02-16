@@ -18,7 +18,7 @@ The overall interface is intentionally very simple because any other communicati
 
 Thanks to all the Flatiron Students willing to lend me their medium usernames, there is a lot of seeded data! Shoot me a slack to get your password... I bet you can figure it out ;)
 
-Check out the demo hosted on github: https://pawlkris.github.io/travel-diary-react/
+Check out the demo hosted on github: https://pawlkris.github.io/flatiron-blog-log-react/
 
 ## Installation Instructions
 In order to run the application, fork the repo or clone using the following:
