@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updatePostFilter } from "../../actions/filter";
+import { updatePostFilter, clearPostFilter } from "../../actions/filter";
 import { Button, Form, Container, Header } from "semantic-ui-react";
 import helper from "../../services/helper";
 
@@ -24,8 +24,11 @@ class PostFilter extends React.Component {
     this.props.updatePostFilter(this.state);
   };
 
+  componentWillUnmount() {
+    this.props.clearPostFilter();
+  }
+
   render() {
-    console.log("filter state", this.state);
     let cohortOptions = helper.cohortsObjForDropdown(this.props.cohorts);
 
     let sortOptions = [
@@ -86,4 +89,6 @@ const mapStateToProps = state => ({
   filter: state.postFilter
 });
 
-export default connect(mapStateToProps, { updatePostFilter })(PostFilter);
+export default connect(mapStateToProps, { updatePostFilter, clearPostFilter })(
+  PostFilter
+);

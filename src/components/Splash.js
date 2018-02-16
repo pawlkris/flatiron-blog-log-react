@@ -13,7 +13,7 @@ const Splash = props => {
       <h3>What is it?</h3>
       <p>
         {
-          "Flatiron Blog Log is a very simple interface for Flatiron Students to interact with each other's Medium Blogs. When a user creates an account, Flatiron Blog Log grabs all the users articles and corresponding posts and tags, adding them to it's database - a Rails API backend. Users can then search through other Flatiron students' blog posts and add articles they like to their library."
+          "Flatiron Blog Log is a very simple interface for Flatiron Students to interact with each other's Medium blog posts. When a user creates an account, Flatiron Blog Log grabs all the users' articles and corresponding posts and tags, adding them to it's database - a Rails API backend. Users can then search through other Flatiron students' blog posts and save them for later viewing."
         }
       </p>
       <p>

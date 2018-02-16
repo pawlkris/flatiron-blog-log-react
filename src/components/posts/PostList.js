@@ -27,7 +27,6 @@ const mapStateToProps = state => {
     }
     posts = users.map(user => user.authored_posts);
     posts = posts.reduce((acc, cur) => acc.concat(cur));
-    console.log(posts);
     Object.entries(filterObj).forEach(([key, value]) => {
       switch (key) {
         case "tag":

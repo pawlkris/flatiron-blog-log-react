@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateDashboardFilter } from "../../actions/filter";
+import {
+  updateDashboardFilter,
+  clearDashboardFilter
+} from "../../actions/filter";
 import { Button, Form, Header } from "semantic-ui-react";
 import helper from "../../services/helper";
 
@@ -10,6 +13,10 @@ class DashboardFilter extends React.Component {
     cohort_id: this.props.filter.cohort_id,
     minTags: this.props.filter.minTags
   };
+
+  componentWillUnmount() {
+    this.props.clearDashboardFilter();
+  }
 
   handleChange = (event, key) => {
     this.setState({ [key]: event.target.value });
@@ -53,9 +60,10 @@ const mapStateToProps = state => ({
   filter: state.dashboardFilter
 });
 
-export default connect(mapStateToProps, { updateDashboardFilter })(
-  DashboardFilter
-);
+export default connect(mapStateToProps, {
+  updateDashboardFilter,
+  clearDashboardFilter
+})(DashboardFilter);
 
 // <Form.Input
 // label="Output Type:"

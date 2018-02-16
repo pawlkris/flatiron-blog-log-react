@@ -28,6 +28,8 @@ class Login extends React.Component {
   render() {
     return (
       <div className="login">
+        <h2>Enter your Medium Username and Password</h2>
+
         <Form onSubmit={this.handleSubmit} error success>
           <Form.Input
             label="Medium Username:"

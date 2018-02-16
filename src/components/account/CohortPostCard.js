@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Image, Icon, Button } from "semantic-ui-react";
+import { addLibraryPost } from "../../actions/library";
 import { Link } from "react-router-dom";
-
 import { connect } from "react-redux";
 
 const CohortPostCard = props => {
@@ -59,4 +59,4 @@ const mapStateToProps = state => ({
     : []
 });
 
-export default connect(mapStateToProps, null)(CohortPostCard);
+export default connect(mapStateToProps, { addLibraryPost })(CohortPostCard);

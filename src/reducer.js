@@ -15,7 +15,9 @@ import {
   REMOVE_SIGNUP_ERROR,
   REMOVE_NEW_USER_MESSAGE,
   ASYNC_START,
-  UPDATE_DASHBOARD_FILTER
+  UPDATE_DASHBOARD_FILTER,
+  CLEAR_POST_FILTER,
+  CLEAR_DASHBOARD_FILTER
 } from "./actions/types";
 import { combineReducers } from "redux";
 
@@ -118,6 +120,13 @@ const postFilterReducer = (
         cohort_id: action.cohort,
         sort: action.sort
       };
+    case CLEAR_POST_FILTER:
+      return {
+        tag: "",
+        title: "",
+        cohort_id: "",
+        sort: "newest"
+      };
     default:
       return state;
   }
@@ -158,6 +167,12 @@ const dashboardFilterReducer = (
   switch (action.type) {
     case UPDATE_DASHBOARD_FILTER:
       return action.filter;
+    case CLEAR_DASHBOARD_FILTER:
+      return {
+        cohort_id: "",
+        chartType: "",
+        minTags: 5
+      };
     default:
       return state;
   }
