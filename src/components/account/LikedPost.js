@@ -19,12 +19,19 @@ class LikedPost extends React.Component {
           <Link to={`/posts/${liked_post.id}`}>
             <h3>{liked_post.title}</h3>
           </Link>
-          <Link to={`/cohorts/users/${liked_post.author.id}`}>
-            <p>Author: {liked_post.author.name}</p>
-          </Link>
-          <p>Date Posted: {helper.formatDate(liked_post.date)}</p>
+
+          <div>
+            <Link to={`/cohorts/users/${liked_post.author.id}`}>
+              <Icon name="user" />
+              {liked_post.author.name}
+            </Link>
+          </div>
+
+          <div>
+            <Icon name="calendar" /> {helper.formatDate(liked_post.date)}
+          </div>
           <p>
-            <a href={medium_url}>
+            <a href={medium_url} target="_blank">
               <Icon name="medium" /> View on Medium
             </a>{" "}
           </p>

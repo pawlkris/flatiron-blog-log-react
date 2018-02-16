@@ -9,9 +9,7 @@ import helper from "../../services/helper";
 
 class DashboardFilter extends React.Component {
   state = {
-    chartType: this.props.filter.chartType,
-    cohort_id: this.props.filter.cohort_id,
-    minTags: this.props.filter.minTags
+    cohort_id: this.props.filter.cohort_id
   };
 
   componentWillUnmount() {

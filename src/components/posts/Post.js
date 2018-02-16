@@ -23,10 +23,11 @@ const Post = props => {
           <h3>{props.post.title}</h3>
         </Link>
         <Link to={`/cohorts/users/${props.post.author.id}`}>
+          <Icon name="user" />
           {props.post.author.name}
         </Link>
         <br />
-        <a href={medium_url}>
+        <a href={medium_url} target="_blank">
           <Icon name="medium" />View on Medium
         </a>
       </Card.Content>

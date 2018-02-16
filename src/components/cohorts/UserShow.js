@@ -31,14 +31,18 @@ const UserShow = props => {
           <p>
             <Icon name="medium" />
             {props.user.medium_username ? (
-              <a href={medium_url}>{props.user.medium_username}</a>
+              <a href={medium_url} target="_blank">
+                {props.user.medium_username}
+              </a>
             ) : (
               "none"
             )}
             {"   "}
             <Icon name="github" />
             {props.user.github ? (
-              <a href={github_url}>{props.user.github}</a>
+              <a href={github_url} target="_blank">
+                {props.user.github}
+              </a>
             ) : (
               "none"
             )}

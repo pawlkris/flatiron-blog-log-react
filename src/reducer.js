@@ -158,9 +158,7 @@ const tagsReducer = (state = { allTags: [], filteredTags: [] }, action) => {
 
 const dashboardFilterReducer = (
   state = {
-    cohort_id: "",
-    chartType: "",
-    minTags: 5
+    cohort_id: ""
   },
   action
 ) => {
@@ -169,9 +167,7 @@ const dashboardFilterReducer = (
       return action.filter;
     case CLEAR_DASHBOARD_FILTER:
       return {
-        cohort_id: "",
-        chartType: "",
-        minTags: 5
+        cohort_id: ""
       };
     default:
       return state;

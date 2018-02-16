@@ -62,7 +62,6 @@ const mapStateToProps = state => {
                 }
               });
             case "alpha-reverse":
-              console.log("alpha-rev");
               return posts.sort((b, a) => {
                 if (a.title.toLowerCase() > b.title.toLowerCase()) {
                   return 1;

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form, Message } from "semantic-ui-react";
+import helper from "../services/helper";
 import { connect } from "react-redux";
 import { newUser, removeSignupError } from "../actions";
 
@@ -41,12 +42,7 @@ class Signup extends Component {
   }
 
   render() {
-    let cohortOptions = this.props.cohorts.map((cohort, index) => ({
-      key: index,
-      text: cohort.name,
-      value: cohort.id
-    }));
-    cohortOptions.unshift({ key: "", text: "", value: "" });
+    let cohortOptions = helper.cohortsObjForDropdown(this.props.cohorts);
     return (
       <div className="signup">
         <h2>Create an Account with your Medium Account</h2>

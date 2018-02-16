@@ -42,7 +42,7 @@ class PostFilter extends React.Component {
 
     return (
       <div className="post-filter">
-        <Container style={{ margin: "2% 10%" }}>
+        <Container style={{ margin: "2%" }}>
           <Header as="h1">Search Blog Posts</Header>
 
           <Form onSubmit={event => this.handleSubmit(event, this.state)}>

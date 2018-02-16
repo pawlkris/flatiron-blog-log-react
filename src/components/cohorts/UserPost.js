@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import helper from "../../services/helper";
 
 const UserPost = props => {
-  console.log(props);
   return (
     <List.Item>
       <List.Content>

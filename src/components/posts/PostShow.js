@@ -15,7 +15,7 @@ const PostShow = props => {
     <div className="post-show">
       <h2>{props.post.title}</h2>
       <h3>
-        <a href={medium_url}>
+        <a href={medium_url} target="_blank">
           <Icon name="medium" /> View on Medium
         </a>{" "}
       </h3>

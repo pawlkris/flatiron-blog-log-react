@@ -3,7 +3,6 @@ import UserCard from "./UserCard";
 import { Card } from "semantic-ui-react";
 
 const CohortShow = props => {
-  console.log(props);
   let users = [];
   if (props.cohort.users.length > 0) {
     users = props.cohort.users.map((user, index) => (

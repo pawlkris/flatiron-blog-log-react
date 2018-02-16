@@ -29,7 +29,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        <Container style={{ margin: "2% 0" }}>
+        <Container>
           <Segment style={{ margin: " 2% 1%", minHeight: 500 }}>
             {!this.props.asyncLoading &&
             (this.props.cohorts.length && this.props.users.length) ? (

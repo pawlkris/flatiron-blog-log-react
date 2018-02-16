@@ -7,7 +7,6 @@ import CohortPostList from "./CohortPostList";
 const AccountHome = props => {
   let medium_url = `https://medium.com/@${props.user.medium_username}`;
   let github_url = `https://github.com/${props.user.github}`;
-  console.log(props);
   return (
     <Grid>
       <Grid.Row>
@@ -31,7 +30,9 @@ const AccountHome = props => {
           <p>
             <Icon name="medium" />
             {props.user.medium_username ? (
-              <a href={medium_url}>{props.user.medium_username}</a>
+              <a href={medium_url} target="_blank">
+                {props.user.medium_username}
+              </a>
             ) : (
               "none"
             )}
@@ -39,7 +40,9 @@ const AccountHome = props => {
 
             <Icon name="github" />
             {props.user.github ? (
-              <a href={github_url}>{props.user.github}</a>
+              <a href={github_url} target="_blank">
+                {props.user.github}{" "}
+              </a>
             ) : (
               "none"
             )}
@@ -50,11 +53,13 @@ const AccountHome = props => {
           </p>
           <p>
             <strong>Saved Posts:</strong>{" "}
-            <a href="/account/saved-posts">{props.user.fan_posts.length}</a>
+            <Link to="/account/saved-posts">{props.user.fan_posts.length}</Link>
           </p>
           <p>
             <strong>Your Posts:</strong>{" "}
-            <a href="/account/your-posts">{props.user.authored_posts.length}</a>
+            <Link to="/account/your-posts">
+              {props.user.authored_posts.length}
+            </Link>
           </p>
           <p>
             <strong>Total Claps:</strong>{" "}
