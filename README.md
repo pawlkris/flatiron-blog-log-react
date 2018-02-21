@@ -5,7 +5,7 @@ Flatiron Blog Log is a very simple interface for Flatiron Students to interact w
 
 There is also a dashboard graphing the top 10 blog post topics (indicated by post tags) and a table of the frequency of topics across all blog posts. This page can be filtered by cohort.
 
-The overall interface is intentionally very simple because any other communication (e.g. comments or claps) should still happen on Medium as a means to increase visibilty to the external world (increase, that SEO!). With that in mind, join up and get your clap on for your fellow students!
+The overall interface is intentionally very simple because any other communication (e.g. comments or claps) should still happen on Medium as a means to increase visibilty to the external world (increase that SEO!). With that in mind, join up and get your clap on for your fellow students!
 
 ### Featuring
 * Full CRUD functionality through a Ruby on Rails API on a PostgreSQL Database, hosted on Heroku (https://flatiron-blog-log-backend.herokuapp.com... go to https://flatiron-blog-log-backend.herokuapp.com/api/users to see json of all users)
@@ -30,4 +30,7 @@ Navigate to the main directory on your local drive and run the following:
 npm install && npm start
 
 Then navigate to http://localhost:3000 and explore away!
+
+## Contributor's Guide
+Please submit any bugs you find through the repo.
 
